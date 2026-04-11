@@ -150,19 +150,10 @@ http://127.0.0.1:8000
 
 ---
 
-## 📈 Pengembangan Selanjutnya
-
-* Integrasi pembayaran online
-* Notifikasi (Email / WhatsApp)
-* Video call consultation
-* Rating & review dokter
-* AI-based health recommendation (opsional, kalau mau advanced 😏)
-
----
 
 ## 👨‍💻 Kontributor
 
-* Nama: [Isi Nama Kamu & Tim]
+* Nama: AKU RAJA RIMBA
 * Mata Kuliah: Web Framework Programming (WFP)
 
 ---
