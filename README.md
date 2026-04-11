@@ -1,66 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🩺 VitaGuard – Web-Based Health Service Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Deskripsi Proyek
 
-## About Laravel
+**VitaGuard** adalah aplikasi berbasis web yang dikembangkan menggunakan framework **Laravel** untuk menyediakan layanan kesehatan digital bagi masyarakat. Platform ini memungkinkan pengguna untuk mengakses informasi kesehatan, melakukan konsultasi dengan dokter, serta melakukan pemesanan jadwal konsultasi secara online.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi ini dirancang untuk meningkatkan aksesibilitas layanan kesehatan dengan memanfaatkan teknologi digital.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 👥 Jenis Pengguna
 
-## Learning Laravel
+Sistem VitaGuard memiliki tiga jenis pengguna utama:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Admin
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* Mengelola seluruh data sistem
+* Mengelola dokter, member, dan artikel
+* Memantau aktivitas konsultasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Dokter
 
-## Laravel Sponsors
+* Menyediakan layanan konsultasi
+* Mengelola jadwal konsultasi
+* Berinteraksi dengan member melalui fitur chat
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 3. Member
 
-### Premium Partners
+* Membaca artikel kesehatan
+* Melakukan konsultasi online
+* Booking jadwal konsultasi
+* Melihat riwayat konsultasi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+## 🚀 Fitur Utama
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 🔐 1. Manajemen Pengguna
 
-## Code of Conduct
+* Role-based access (Admin, Dokter, Member)
+* Autentikasi dan otorisasi pengguna
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 📚 2. Artikel Kesehatan
 
-## Security Vulnerabilities
+* Menampilkan artikel edukasi kesehatan
+* CRUD artikel oleh admin
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 👨‍⚕️ 3. Direktori Dokter
 
-## License
+* Daftar dokter lengkap dengan profil
+* Informasi spesialisasi dan pengalaman
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 💬 4. Konsultasi Online
+
+* Chat antara member dan dokter
+* Real-time atau asynchronous messaging
+
+### 📅 5. Booking Konsultasi
+
+* Pemesanan jadwal berdasarkan ketersediaan dokter
+* Manajemen slot waktu
+
+### 🕒 6. Riwayat Konsultasi
+
+* Penyimpanan histori konsultasi
+* Akses riwayat oleh member
+
+### 📊 7. Dashboard Admin
+
+* Monitoring data pengguna
+* Statistik konsultasi
+* Manajemen sistem secara keseluruhan
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+* **Backend**: Laravel
+* **Frontend**: Blade / HTML / CSS / JavaScript
+* **Database**: MySQL
+* **Authentication**: Laravel Auth / Breeze / Sanctum (opsional)
+
+---
+
+## ⚙️ Instalasi & Setup
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/username/vitaguard.git
+cd vitaguard
+```
+
+### 2. Install Dependency
+
+```bash
+composer install
+npm install
+```
+
+### 3. Konfigurasi Environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Atur konfigurasi database di file `.env`:
+
+```
+DB_DATABASE=vitaguard
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 4. Migrasi Database
+
+```bash
+php artisan migrate
+```
+
+### 5. Jalankan Server
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## 🗂️ Struktur Fitur (Sederhana)
+
+* `/app/Models` → Model database
+* `/app/Http/Controllers` → Logic aplikasi
+* `/resources/views` → Tampilan (Blade)
+* `/routes/web.php` → Routing aplikasi
+
+---
+
+## 📌 Use Case Utama
+
+* Member mencari dokter → Booking → Konsultasi
+* Dokter menerima konsultasi → Memberi respon
+* Admin mengelola seluruh sistem
+
+---
+
+## 📈 Pengembangan Selanjutnya
+
+* Integrasi pembayaran online
+* Notifikasi (Email / WhatsApp)
+* Video call consultation
+* Rating & review dokter
+* AI-based health recommendation (opsional, kalau mau advanced 😏)
+
+---
+
+## 👨‍💻 Kontributor
+
+* Nama: [Isi Nama Kamu & Tim]
+* Mata Kuliah: Web Framework Programming (WFP)
+
+---
+
+## 📄 Lisensi
+
+Project ini dibuat untuk keperluan akademik.
