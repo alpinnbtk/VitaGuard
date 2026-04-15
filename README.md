@@ -113,10 +113,11 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 4. Migrasi Database
+### 4. Migrasi dan Seed Database
 
 ```bash
 php artisan migrate
+php artisan db:seed
 ```
 
 ### 5. Jalankan Server
