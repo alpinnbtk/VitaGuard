@@ -16,15 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('content');
-            $table->string('thumbnail');
-            $table->string('author_username', 50);
-            $table->foreign('author_username')
-                ->references('username')
-                ->on('users')
-                ->onDelete('cascade');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->timestamp('published_at');
+            $table->string('thumbnail')->nullable();
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
