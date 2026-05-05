@@ -14,7 +14,6 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            // ===== ADMIN =====
             [
                 'name' => 'Administrator',
                 'username' => 'admin',
@@ -27,7 +26,6 @@ class UsersSeeder extends Seeder
                 'updated_at' => now()
             ],
 
-            // ===== MEMBER =====
             [
                 'name' => 'Andika Pratama',
                 'username' => 'andika92',
@@ -84,7 +82,6 @@ class UsersSeeder extends Seeder
                 'updated_at' => now()
             ],
 
-            // ===== DOCTOR =====
             [
                 'name' => 'Dr. Ahmad Hidayat',
                 'username' => 'ahmad77',

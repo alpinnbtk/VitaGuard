@@ -14,7 +14,7 @@ class DoctorsSeeder extends Seeder
     {
         DB::table('doctors')->insert([
             [
-                'user_id' => 7, // ahmad77
+                'user_id' => 7,
                 'name' => 'Dr. Ahmad Hidayat',
                 'specialization' => 'Dokter Umum',
                 'email' => 'ahmad.hidayat@hospital.com',
@@ -29,7 +29,7 @@ class DoctorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 8, // sari66
+                'user_id' => 8,
                 'name' => 'Dr. Sari Wulandari',
                 'specialization' => 'Spesialis Anak',
                 'email' => 'sari.wulandari@clinic.com',
@@ -44,7 +44,7 @@ class DoctorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 9, // bambang58
+                'user_id' => 9,
                 'name' => 'Dr. Bambang Sutrisno',
                 'specialization' => 'Spesialis Penyakit Dalam',
                 'email' => 'bambang.sutrisno@medic.id',
@@ -59,7 +59,7 @@ class DoctorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 10, // lina49
+                'user_id' => 10,
                 'name' => 'Dr. Lina Kartika',
                 'specialization' => 'Spesialis Kulit & Kelamin',
                 'email' => 'lina.kartika@healthcare.id',
@@ -74,7 +74,7 @@ class DoctorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 11, // rizal36
+                'user_id' => 11,
                 'name' => 'Dr. Rizal Maulana',
                 'specialization' => 'Spesialis Jantung',
                 'email' => 'rizal.maulana@hospital.com',

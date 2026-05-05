@@ -8,13 +8,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TransactionController;
 use Illuminate\Support\Facades\Route;
 
-/* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- */
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// ADMIN PANEL
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class , 'index'])->name('dashboard');
     Route::resource('categories', CategoryController::class)->except(['show']);

@@ -2,7 +2,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<!-- Stats -->
 <div class="row g-4 mb-4">
     <div class="col-md-3">
         <div class="stat-card">
@@ -58,7 +57,6 @@
     </div>
 </div>
 
-<!-- Recent Transactions -->
 <div class="card-custom">
     <div class="card-header">
         <h5><i class="bi bi-clock-history me-2"></i>Konsultasi Terbaru</h5>

@@ -6,11 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') — VitaGuard Admin</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -30,7 +27,6 @@
             min-height: 100vh;
         }
 
-        /* ── Sidebar ── */
         .sidebar {
             position: fixed;
             top: 0; left: 0; bottom: 0;
@@ -120,7 +116,6 @@
             text-align: center;
         }
 
-        /* ── Main content ── */
         .main-content {
             margin-left: var(--sidebar-width);
             min-height: 100vh;
@@ -149,7 +144,6 @@
             padding: 2rem;
         }
 
-        /* ── Cards + Tables ── */
         .stat-card {
             background: white;
             border-radius: 12px;
@@ -228,14 +222,12 @@
             border-color: var(--accent-dark);
         }
 
-        /* ── Alert ── */
         .alert {
             border-radius: 10px;
             border: none;
             font-size: 0.875rem;
         }
 
-        /* ── Responsive ── */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.show { transform: translateX(0); }
@@ -244,7 +236,6 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <div class="logo-icon">
@@ -289,7 +280,6 @@
         </nav>
     </aside>
 
-    <!-- Main content -->
     <div class="main-content">
         <header class="topbar">
             <div class="d-flex align-items-center gap-3">
@@ -330,7 +320,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 </body>
