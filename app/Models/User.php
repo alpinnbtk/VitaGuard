@@ -15,9 +15,11 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
-        'phone_number',
-        'role',
         'password',
+        'phone_number',
+        'photo',
+        'role',
+        'email_verified_at',
     ];
 
     protected $hidden = [
@@ -38,6 +40,11 @@ class User extends Authenticatable
     public function doctor()
     {
         return $this->hasOne(Doctor::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'user_id');
     }
 
     public function transactions()

@@ -13,14 +13,11 @@ class Doctor extends Model
         'user_id',
         'name',
         'specialization',
-        'email',
-        'phone_number',
         'gender',
-        'address',
         'experience_years',
+        'bio',
         'price',
         'rating',
-        'photo',
     ];
 
     protected $casts = [
@@ -31,6 +28,16 @@ class Doctor extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function doctor_schedules()
+    {
+        return $this->hasMany(DoctorSchedules::class, 'doctor_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'doctor_id');
     }
 
     public function transactions()

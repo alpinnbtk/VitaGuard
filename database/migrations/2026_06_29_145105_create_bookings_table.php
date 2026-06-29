@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
-            $table->string('name');
-            $table->string('specialization');
-            $table->enum('gender', ['male', 'female']);
-            $table->integer('experience_years')->default(0);
-            $table->text('bio')->nullable();
-            $table->decimal('price', 10, 2);
-            $table->decimal('rating', 3, 2)->nullable();
+            $table->foreignId('doctor_id')->constrained('doctor')->onDelete('restrict');
+            $table->foreignId('doctor_schedule_id')->constrained('doctor_schedule')->onDelete('restrict');
+            $table->date('booking_date');
+            $table->time('booking_time');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed']);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('bookings');
     }
 };
