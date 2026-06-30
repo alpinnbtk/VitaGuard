@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
-            $table->foreignId('doctor_id')->constrained('doctor')->onDelete('restrict');
-            $table->foreignId('doctor_schedule_id')->constrained('doctor_schedule')->onDelete('restrict');
+            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('restrict');
+            $table->foreignId('doctor_schedule_id')->constrained('doctor_schedules')->onDelete('restrict');
             $table->date('booking_date');
             $table->time('booking_time');
             $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed']);

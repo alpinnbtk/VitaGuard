@@ -15,8 +15,11 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             CategoriesSeeder::class,
             DoctorsSeeder::class,
+            DoctorSchedulesSeeder::class,
             ArticlesSeeder::class,
-            TransactionsSeeder::class,
+            BookingsSeeder::class,
+            ConsultationsSeeder::class,
+            // TransactionsSeeder::class,
         ]);
     }
 }
