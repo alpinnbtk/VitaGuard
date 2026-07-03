@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +10,7 @@ use App\Models\Transaction;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function adminDashboard()
     {
         $totalMembers = User::where('role', 'member')->count();
         $totalDoctors = Doctor::count();

@@ -13,7 +13,8 @@
             <h1 class="text-center">VitaGuard Health Platform</h1>
         </div>
         <div class="text-center mt-4">
-            <a href="{{ url('/admin') }}" class="btn btn-primary">Halaman Dashboard</a>
+            <a href="{{ route('register') }}" class="btn btn-primary">Buat Akun Baru</a>
+            <a href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
         </div>
     </body>
 </html>

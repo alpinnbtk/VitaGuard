@@ -40,6 +40,18 @@ class Doctor extends Model
         return $this->hasMany(Booking::class, 'doctor_id');
     }
 
+    public function consultations()
+    {
+        return $this->hasManyThrough(
+            Consultation::class,
+            Booking::class,
+            'doctor_id',         // FK di tabel bookings → merujuk ke doctors.id
+            'booking_id',        // FK di tabel consultations → merujuk ke bookings.id
+            'id',                // PK di tabel doctors
+            'id'                 // PK di tabel bookings
+        );
+    }
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

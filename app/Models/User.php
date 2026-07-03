@@ -37,14 +37,14 @@ class User extends Authenticatable
         return $this->hasMany(Article::class, 'author_id');
     }
 
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
+
     public function doctor()
     {
         return $this->hasOne(Doctor::class);
-    }
-
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class, 'user_id');
     }
 
     public function transactions()

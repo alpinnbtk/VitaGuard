@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') — VitaGuard Admin</title>
+    <title>@yield('title', 'Dashboard') — VitaGuard Dokter</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* Identik dengan layouts/admin.blade.php */
         :root {
             --sidebar-width: 260px;
             --sidebar-bg: #0f172a;
@@ -212,6 +213,63 @@
             border-radius: 6px;
         }
 
+        .menu-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            height: 100%;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .menu-card .menu-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-card h6 {
+            font-size: 0.925rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
+        }
+
+        .menu-card p {
+            font-size: 0.775rem;
+            color: #64748b;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .menu-card .arrow {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 500;
+        }
+
+        .icon-blue   { background: rgba(14, 165, 233, 0.1);  color: #0ea5e9; }
+        .icon-violet { background: rgba(139, 92, 246, 0.1);  color: #8b5cf6; }
+        .icon-green  { background: rgba(34, 197, 94, 0.1);   color: #22c55e; }
+        .icon-amber  { background: rgba(245, 158, 11, 0.1);  color: #f59e0b; }
+
         .btn-primary {
             background: var(--accent);
             border-color: var(--accent);
@@ -243,39 +301,35 @@
             </div>
             <div>
                 <h5>VitaGuard</h5>
-                <small>Admin Panel</small>
+                <small>Dokter Panel</small>
             </div>
         </div>
 
         <nav class="sidebar-menu">
             <div class="menu-label">Main</div>
-            <a href="{{ route('admin.dashboard') }}"
-               class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            <a href="{{ route('doctor.home') }}"
+               class="nav-link {{ request()->routeIs('doctor.home') ? 'active' : '' }}">
+                <i class="bi bi-house-fill"></i> Beranda
             </a>
 
-            <div class="menu-label mt-3">Master Data</div>
-            <a href="{{ route('admin.users.index') }}"
-               class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                <i class="bi bi-people-fill"></i> Users
+            <div class="menu-label mt-3">Layanan</div>
+            <a href="{{ route('doctor.bookings.index') }}"
+               class="nav-link {{ request()->routeIs('doctor.bookings.*') ? 'active' : '' }}">
+                <i class="bi bi-calendar-check-fill"></i> Daftar Booking
             </a>
-            <a href="{{ route('admin.doctors.index') }}"
-               class="nav-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
-                <i class="bi bi-hospital"></i> Dokter
+            <a href="{{ route('doctor.consultations.index') }}"
+               class="nav-link {{ request()->routeIs('doctor.consultations.*') ? 'active' : '' }}">
+                <i class="bi bi-chat-dots-fill"></i> Konsultasi Online
             </a>
-            <a href="{{ route('admin.categories.index') }}"
-               class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                <i class="bi bi-tag-fill"></i> Kategori
-            </a>
-            <a href="{{ route('admin.articles.index') }}"
-               class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
-                <i class="bi bi-newspaper"></i> Artikel
+            <a href="{{ route('doctor.history.index') }}"
+               class="nav-link {{ request()->routeIs('doctor.history.*') ? 'active' : '' }}">
+                <i class="bi bi-clock-history"></i> Riwayat Konsultasi
             </a>
 
-            <div class="menu-label mt-3">Transaksi</div>
-            <a href="{{ route('admin.transactions.index') }}"
-               class="nav-link {{ request()->routeIs('admin.transactions.*') ? 'active' : '' }}">
-                <i class="bi bi-receipt-cutoff"></i> Konsultasi
+            <div class="menu-label mt-3">Akun</div>
+            <a href="{{ route('doctor.profile.show') }}"
+               class="nav-link {{ request()->routeIs('doctor.profile.*') ? 'active' : '' }}">
+                <i class="bi bi-person-circle"></i> Profil Saya
             </a>
         </nav>
     </aside>
@@ -283,16 +337,18 @@
     <div class="main-content">
         <header class="topbar">
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-sm btn-light d-md-none" onclick="document.getElementById('sidebar').classList.toggle('show')">
+                <button class="btn btn-sm btn-light d-md-none"
+                        onclick="document.getElementById('sidebar').classList.toggle('show')">
                     <i class="bi bi-list"></i>
                 </button>
-                <h1>@yield('title', 'Dashboard')</h1>
+                <h1>@yield('title', 'Beranda')</h1>
             </div>
+
+            {{-- Topbar kanan: info user + logout --}}
             <div class="d-flex align-items-center gap-3">
-            {{-- Info user --}}
                 <div class="d-flex align-items-center gap-2">
                     <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                        style="width:35px;height:35px;">
+                         style="width:35px;height:35px;">
                         <i class="bi bi-person-fill"></i>
                     </div>
                     <div class="d-none d-md-block">
@@ -300,12 +356,11 @@
                             {{ Auth::user()->name }}
                         </div>
                         <div style="font-size:0.7rem; color:#64748b; text-transform:uppercase; letter-spacing:0.5px;">
-                            Administrator
+                            Dokter
                         </div>
                     </div>
                 </div>
 
-                {{-- Logout button --}}
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf
                     <button type="submit"
