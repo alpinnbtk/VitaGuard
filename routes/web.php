@@ -61,7 +61,7 @@ Route::middleware(['auth', 'role:member'])->prefix('member')->name('member.')->g
     Route::get('/home',               [HomeController::class, 'memberHome'])->name('home');
     Route::resource('articles',       ArticleController::class)->only(['index', 'show']);
     Route::resource('doctors',        DoctorController::class)->only(['index', 'show']);
-    Route::resource('bookings',       BookingController::class)->only(['index', 'create', 'store']);
+    Route::resource('booking',        BookingController::class);
     Route::resource('consultations',  ConsultationController::class)->only(['index', 'show', 'store']);
     Route::get('/profile',            [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit',       [ProfileController::class, 'edit'])->name('profile.edit');

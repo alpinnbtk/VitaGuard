@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('restrict');
-            $table->foreignId('doctor_schedule_id')->constrained('doctor_schedules')->onDelete('restrict');
+            $table->foreignId('doctor_schedule_id')->nullable()->constrained('doctor_schedules')->onDelete('restrict');
             $table->date('booking_date');
             $table->time('booking_time');
+            $table->text('complaint')->nullable();
             $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed']);
             $table->timestamps();
         });

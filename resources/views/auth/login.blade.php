@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-fav.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -8,19 +9,21 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent: #0ea5e9;
-            --accent-dark: #0284c7;
-            --dark: #0f172a;
+            --accent: #2bb3a7;
+            --accent-dark: #1c5578;
+            --dark: #123852;
+            --bg: #f3faf9;
         }
 
         * { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; letter-spacing: -0.01em; }
 
         body {
-            background: #f1f5f9;
+            background: var(--bg);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -29,7 +32,7 @@
 
         .auth-wrapper {
             width: 100%;
-            max-width: 440px;
+            max-width: 520px;
             padding: 1.5rem;
         }
 
@@ -41,24 +44,9 @@
             margin-bottom: 2rem;
         }
 
-        .auth-brand .logo-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: white;
-        }
-
-        .auth-brand h4 {
-            margin: 0;
-            color: var(--dark);
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: -0.5px;
+        .auth-brand img {
+            height: 48px;
+            width: auto;
         }
 
         .auth-card {
@@ -204,10 +192,7 @@
 
         {{-- Brand --}}
         <div class="auth-brand">
-            <div class="logo-icon">
-                <i class="bi bi-heart-pulse"></i>
-            </div>
-            <h4>VitaGuard</h4>
+            <img src="{{ asset('images/logo.png') }}" alt="Logo VitaGuard">
         </div>
 
         {{-- Card --}}

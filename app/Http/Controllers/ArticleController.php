@@ -11,8 +11,17 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (auth()->check() && auth()->user()->role === 'member') {
+            $search = $request->input('search');
+            $articles = Article::when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })->latest('published_at')->paginate(6);
+            
+            return view('member.articles.index', compact('articles'));
+        }
+
         $articles = Article::with(['author', 'category'])->latest()->get();
         return view('admin.articles.index', compact('articles'));
     }
@@ -50,6 +59,11 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $article->load(['author', 'category']);
+        
+        if (auth()->check() && auth()->user()->role === 'member') {
+            return view('member.articles.show', compact('article'));
+        }
+        
         return view('admin.articles.show', compact('article'));
     }
 

@@ -89,7 +89,7 @@ img { display: block; max-width: 100%; }
 /* ---------- HERO ---------- */
 .hero {
   position: relative;
-  padding: 96px 32px 120px;
+  padding: 140px 32px 120px;
   text-align: center;
   overflow: hidden;
 }
@@ -133,7 +133,7 @@ img { display: block; max-width: 100%; }
 }
 
 .hero-mark {
-  margin-top: 56px;
+  margin-bottom: 24px;
   display: flex;
   justify-content: center;
 }
@@ -267,7 +267,7 @@ img { display: block; max-width: 100%; }
   max-width: 1180px;
   margin: 0 32px 90px;
   margin-inline: auto;
-  background: linear-gradient(120deg, var(--navy-deep), var(--navy-mid) 60%, var(--teal));
+  background: var(--navy-mid);
   border-radius: 28px;
   padding: 56px 40px;
   text-align: center;

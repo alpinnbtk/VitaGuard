@@ -18,6 +18,10 @@ class Doctor extends Model
         'bio',
         'price',
         'rating',
+        'email',
+        'phone_number',
+        'address',
+        'image',
     ];
 
     protected $casts = [
