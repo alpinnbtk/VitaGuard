@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Booking;
+use App\Models\Consultation;
 use App\Models\Doctor;
 use App\Models\Article;
-use App\Models\Transaction;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function adminDashboard()
     {
-        $totalMembers = User::where('role', 'member')->count();
-        $totalDoctors = Doctor::count();
+        // --- Master data counts ---
+        $totalMembers  = User::where('role', 'member')->count();
+        $totalDoctors  = Doctor::count();
         $totalArticles = Article::count();
-        $totalTransactions = Transaction::count();
-        $recentTransactions = Transaction::with(['user', 'doctor'])
+
+        // --- Booking & Consultation statistics ---
+        $totalBookings           = Booking::count();
+        $ongoingConsultations    = Consultation::where('status', 'ongoing')->count();
+        $completedConsultations  = Consultation::where('status', 'closed')->count();
+
+        // --- Recent bookings for the dashboard table ---
+        $recentBookings = Booking::with(['user', 'doctor'])
             ->latest()
             ->take(5)
             ->get();
@@ -25,8 +33,10 @@ class DashboardController extends Controller
             'totalMembers',
             'totalDoctors',
             'totalArticles',
-            'totalTransactions',
-            'recentTransactions'
+            'totalBookings',
+            'ongoingConsultations',
+            'completedConsultations',
+            'recentBookings'
         ));
     }
 }
