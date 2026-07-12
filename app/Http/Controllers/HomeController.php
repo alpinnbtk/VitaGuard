@@ -16,10 +16,10 @@ class HomeController extends Controller
     {
         $doctor = Auth::user()->doctor;
 
-        $totalBookings         = $doctor->bookings()->count();
-        $activeConsultations   = $doctor->consultations()->where('consultations.status', 'ongoing')->count();
-        $completedConsultations = $doctor->consultations()->where('consultations.status', 'closed')->count();
-        $recentBookings        = $doctor->bookings()->with('user')->latest()->take(5)->get();
+        $totalBookings         = $doctor ? $doctor->bookings()->count() : 0;
+        $activeConsultations   = $doctor ? $doctor->consultations()->where('consultations.status', 'ongoing')->count() : 0;
+        $completedConsultations = $doctor ? $doctor->consultations()->where('consultations.status', 'closed')->count() : 0;
+        $recentBookings        = $doctor ? $doctor->bookings()->with('user')->latest()->take(5)->get() : collect();
 
         return view('doctor.home', compact(
             'totalBookings',

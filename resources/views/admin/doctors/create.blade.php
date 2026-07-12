@@ -55,12 +55,12 @@
                     @error('rating') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="user_id" class="form-label fw-medium">Akun User (Opsional)</label>
-                    <select name="user_id" id="user_id" class="form-select">
-                        <option value="">-- Tidak dikaitkan --</option>
+                    <label class="form-label fw-medium">Akun Dokter</label>
+                    <select name="user_id" class="form-select" required>
+                        <option value="">-- Pilih Akun Dokter --</option>
                         @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }} ({{ $user->username }})
+                            <option value="{{ $user->id }}">
+                                {{ $user->name }}
                             </option>
                         @endforeach
                     </select>

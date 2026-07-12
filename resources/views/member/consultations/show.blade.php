@@ -35,7 +35,7 @@
                 <div class="card-body p-4">
                     <h6 class="fw-bold mb-3" style="color:var(--dark);">Info Konsultasi</h6>
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <img src="{{ $booking->doctor->image ?? asset('images/doctors/default-article.jpg') }}"
+                        <img src="{{ $booking->doctor->image ? asset($booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
                              class="rounded-circle" style="width:56px; height:56px; object-fit:cover; border:2px solid var(--accent);">
                         <div>
                             <div class="fw-semibold" style="color:var(--dark);">{{ $booking->doctor->name }}</div>

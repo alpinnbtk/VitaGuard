@@ -37,7 +37,7 @@
                 <select name="doctor_id" id="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" style="border-radius:8px;" onchange="onDoctorChanged(this)" required>
                     <option value="">-- Pilih Dokter --</option>
                     @foreach($doctors as $doctor)
-                        <option value="{{ $doctor->id }}" data-schedule-url="{{ route('member.doctors.schedules', $doctor->id) }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                        <option value="{{ $doctor->id }}" data-schedule-url="{{ route('admin.doctors.schedules', $doctor->id) }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
                             {{ $doctor->name }} ({{ $doctor->specialization }})
                         </option>
                     @endforeach

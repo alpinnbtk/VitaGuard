@@ -12,13 +12,43 @@
         <div class="col-md-8 mx-auto">
             <div class="card shadow-sm" style="border-radius: 15px; border: none;">
                 <div class="card-body p-4 p-md-5">
-                    
-                    <form action="{{ route('member.profile.update') }}" method="POST">
+
+                    <form action="{{ route('member.profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
+                        {{-- Section: Foto Profil --}}
+                        <h5 class="mb-3" style="color: var(--dark); font-weight: 600;">Foto Profil</h5>
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-auto">
+                                {{-- Ganti 'photo' dengan nama kolom di tabel users kamu jika berbeda --}}
+                                @if($user->photo)
+                                    <img src="{{ asset($user->photo) }}" id="preview-img"
+                                         class="rounded-circle shadow-sm" style="width:80px; height:80px; object-fit:cover; border:2px solid var(--accent);">
+                                @else
+                                    <div id="preview-placeholder" class="rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                         style="width:80px; height:80px; font-size:2rem; background-color: rgba(43, 179, 167, 0.1); color: var(--accent);">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <img id="preview-img" src="#" class="rounded-circle shadow-sm d-none"
+                                         style="width:80px; height:80px; object-fit:cover; border:2px solid var(--accent);">
+                                @endif
+                            </div>
+                            <div class="col">
+                                <label class="form-label" style="font-weight: 500;">Ganti Foto</label>
+                                <input type="file" name="photo" id="photo-input" accept="image/*"
+                                       class="form-control @error('photo') is-invalid @enderror" style="border-radius: 10px;"
+                                       onchange="previewImage(event)">
+                                <small class="text-muted">Format: JPG, PNG. Maks. 2MB.</small>
+                                @error('photo') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+
+                        <hr class="mb-4" style="border-color: #eee;">
+
+                        {{-- Section: Informasi Akun --}}
                         <h5 class="mb-4" style="color: var(--dark); font-weight: 600;">Informasi Akun</h5>
-                        
+
                         <div class="mb-3">
                             <label class="form-label" style="font-weight: 500;">Nama Lengkap</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required style="border-radius: 10px;">
@@ -42,8 +72,9 @@
 
                         <hr class="mb-4" style="border-color: #eee;">
 
-                        <h5 class="mb-4" style="color: var(--dark); font-weight: 600;">Informasi Kesehatan & Lainya</h5>
-                        
+                        {{-- Section: Informasi Kesehatan --}}
+                        <h5 class="mb-4" style="color: var(--dark); font-weight: 600;">Informasi Kesehatan & Lainnya</h5>
+
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" style="font-weight: 500;">Jenis Kelamin</label>
@@ -84,4 +115,25 @@
         </div>
     </div>
 </div>
+
+{{-- Script untuk Live Preview Gambar --}}
+@push('scripts')
+<script>
+function previewImage(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview-img');
+    const placeholder = document.getElementById('preview-placeholder');
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            if (placeholder) placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+@endpush
 @endsection

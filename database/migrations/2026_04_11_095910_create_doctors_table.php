@@ -21,6 +21,10 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('rating', 3, 2)->nullable();
+            $table->string('image')->nullable();
+            $table->text('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }

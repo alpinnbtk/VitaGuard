@@ -71,7 +71,7 @@
                                        value="{{ $doctor->id }}"
                                        onchange="onDoctorSelected(this)"
                                        required>
-                                <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('images/doctors/default-article.jpg') }}"
+                                <img src="{{ $doctor->image ? asset($doctor->image) : asset('images/doctors/default-article.jpg') }}"
                                      class="rounded-circle me-3"
                                      style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #ddd;">
                                 <div>

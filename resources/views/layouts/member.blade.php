@@ -131,9 +131,16 @@
                 {{-- User Section --}}
                 <div class="d-flex align-items-center gap-3">
                     <div class="user-badge">
-                        <div class="user-avatar">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
+                        @if(Auth::user()->photo)
+                            <img src="{{ asset(Auth::user()->photo) }}"
+                                alt="{{ Auth::user()->name }}"
+                                class="rounded-circle shadow-sm"
+                                style="width: 32px; height: 32px; object-fit: cover;">
+                        @else
+                            <div class="user-avatar">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        @endif
                         <span>{{ Auth::user()->name }}</span>
                     </div>
                     <form action="{{ route('logout') }}" method="POST" class="m-0">

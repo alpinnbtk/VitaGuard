@@ -50,7 +50,7 @@
                             </small>
                         </div>
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ $booking->doctor->image ? asset('storage/' . $booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
+                            <img src="{{ $booking->doctor->image ? asset($booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
                                  class="rounded-circle me-3"
                                  style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #eee;">
                             <div>
@@ -58,23 +58,29 @@
                                 <small style="color: var(--accent);">{{ $booking->doctor->specialization }}</small>
                             </div>
                         </div>
+
                         @if($booking->complaint)
                         <div class="p-3" style="background-color: #f8f9fa; border-radius: 10px;">
                             <small class="text-muted d-block mb-1"><strong>Keluhan:</strong></small>
                             <p class="mb-0" style="font-size: 0.9rem;">{{ $booking->complaint }}</p>
                         </div>
                         @endif
-                    </div>
-                </div>
-            </div>
-        @empty
-            <div class="col-12 text-center py-5">
+
+                        <div class="mt-3 d-flex justify-content-end">
+                            <a href="{{ route('member.booking.show', $booking->id) }}"
+                               class="btn btn-sm text-white px-3"
+                               style="background-color: var(--accent); border-radius: 20px; font-size: 0.85rem;">
+                                <i class="bi bi-eye me-1"></i>Lihat Detail
+                            </a>
+                        </div>
+                    </div> </div> </div> @empty <div class="col-12 text-center py-5">
                 <i class="bi bi-calendar-x" style="font-size:4rem; color:#cbd5e1;"></i>
                 <h5 class="mt-3" style="color: var(--dark);">Belum Ada Booking</h5>
                 <p class="text-muted">Buat booking pertama Anda untuk memulai konsultasi.</p>
                 <a href="{{ route('member.booking.create') }}" class="btn text-white mt-3 px-4"
                    style="background-color: var(--accent); border-radius: 20px;">Buat Booking</a>
             </div>
+
         @endforelse
     </div>
 

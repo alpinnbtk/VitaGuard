@@ -85,6 +85,10 @@ class ConsultationController extends Controller
             return view('doctor.consultations.show', compact('consultation', 'booking', 'messages'));
         }
 
+        if ($user->role === 'admin') {
+            return view('admin.consultations.show', compact('consultation', 'booking', 'messages'));
+        }
+
         // Member sees the same show view (handles both ongoing & closed states)
         return view('member.consultations.show', compact('consultation', 'booking', 'messages'));
     }

@@ -149,6 +149,10 @@ class BookingController extends Controller
             abort(403);
         }
 
+        if ($user->role === 'admin') {
+            return view('admin.bookings.show', compact('booking'));
+        }
+
         if ($user->role === 'doctor') {
             return view('doctor.bookings.show', compact('booking'));
         }
@@ -301,9 +305,15 @@ class BookingController extends Controller
      */
     public function getSchedules(Doctor $doctor)
     {
+        $daysOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+
         $schedules = $doctor->doctor_schedules()
-            ->orderByRaw("FIELD(day, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
-            ->get(['id', 'day', 'start_time', 'end_time']);
+            ->get(['id', 'day', 'start_time', 'end_time'])
+            ->sortBy(function ($schedule) use ($daysOrder) {
+                $pos = array_search($schedule->day, $daysOrder);
+                return $pos !== false ? $pos : 999;
+            })
+            ->values();
 
         return response()->json($schedules);
     }

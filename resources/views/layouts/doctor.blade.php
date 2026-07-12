@@ -348,10 +348,17 @@
             {{-- Topbar kanan: info user + logout --}}
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                         style="width:35px;height:35px;">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
+                    @if(Auth::user()->doctor && Auth::user()->doctor->image)
+                        <img src="{{ asset(Auth::user()->doctor->image) }}"
+                            alt="{{ Auth::user()->name }}"
+                            class="rounded-circle shadow-sm"
+                            style="width:35px; height:35px; object-fit:cover;">
+                    @else
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow-sm"
+                            style="width:35px;height:35px;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                    @endif
                     <div class="d-none d-md-block">
                         <div style="font-size:0.825rem; font-weight:600; color:#0f172a; line-height:1.2;">
                             {{ Auth::user()->name }}
