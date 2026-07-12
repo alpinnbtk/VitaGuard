@@ -292,7 +292,11 @@
             <div class="menu-label mt-3">Transaksi</div>
             <a href="{{ route('admin.bookings.index') }}"
                 class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
-                <i class="bi bi-calendar-check-fill"></i> Daftar Konsultasi
+                <i class="bi bi-calendar-check-fill"></i> Daftar Booking
+            </a>
+            <a href="{{ route('admin.consultations.index') }}"
+                class="nav-link {{ request()->routeIs('admin.consultations.*') ? 'active' : '' }}">
+                <i class="bi bi-chat-dots-fill"></i> Konsultasi Online
             </a>
         </nav>
     </aside>
@@ -309,10 +313,17 @@
             <div class="d-flex align-items-center gap-3">
                 {{-- Info user --}}
                 <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                        style="width:35px;height:35px;">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
+                    @if(Auth::user()->photo)
+                        <img src="{{ asset(Auth::user()->photo) }}"
+                            alt="{{ Auth::user()->name }}"
+                            class="rounded-circle shadow-sm"
+                            style="width:35px; height:35px; object-fit:cover;">
+                    @else
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow-sm"
+                            style="width:35px; height:35px;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                    @endif
                     <div class="d-none d-md-block">
                         <div style="font-size:0.825rem; font-weight:600; color:#0f172a; line-height:1.2;">
                             {{ Auth::user()->name }}

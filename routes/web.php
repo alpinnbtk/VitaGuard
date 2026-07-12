@@ -45,7 +45,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
     Route::resource('consultations', ConsultationController::class)->only(['index', 'show']);
     Route::resource('users', UserController::class)->except(['show']);
+    // AJAX: Get doctor schedules for admin booking create/edit forms
+    Route::get('/doctors/{doctor}/schedules', [BookingController::class, 'getSchedules'])->name('doctors.schedules');
     // Route::resource('transactions',   TransactionController::class);
+    Route::get('/member/profile', [App\Http\Controllers\MemberController::class, 'show'])->name('member.profile.show');
+    Route::get('/member/profile/edit', [App\Http\Controllers\MemberController::class, 'edit'])->name('member.profile.edit');
+    Route::put('/member/profile/update', [App\Http\Controllers\MemberController::class, 'update'])->name('member.profile.update');
 });
 
 // Doctor

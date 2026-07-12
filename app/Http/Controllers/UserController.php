@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -57,10 +58,22 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone_number' => 'nullable|string|max:20',
             'role' => 'required|in:admin,doctor,member',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         $data = $request->only('name', 'username', 'email', 'phone_number', 'role');
+
+        if ($request->hasFile('photo')) {
+            if ($user->photo && file_exists(public_path($user->photo))) {
+                unlink(public_path($user->photo));
+            }
+            $file = $request->file('photo');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/users'), $filename);
+            $data['photo'] = 'images/users/' . $filename;
+        }
+
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
@@ -72,8 +85,13 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User berhasil dihapus!');
+        try {
+            $user->delete();
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User berhasil dihapus!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Tidak dapat menghapus user karena data ini sedang digunakan (misal: sebagai member/dokter yang memiliki transaksi).');
+        }
     }
 }

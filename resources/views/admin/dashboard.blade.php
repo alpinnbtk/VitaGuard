@@ -51,7 +51,7 @@
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
-                        <p class="text-muted small mb-1">Total Konsultasi</p>
+                        <p class="text-muted small mb-1">Jumlah Booking Konsultasi</p>
                         <h3 class="fw-bold mb-0">{{ $totalBookings }}</h3>
                         <small class="text-muted">Seluruh permintaan jadwal</small>
                     </div>
@@ -135,13 +135,13 @@
                                 @endswitch
                             </td>
                         </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center text-muted py-3">Belum ada data konsultasi</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-3">Belum ada data konsultasi</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    @endsection
+    </div>
+@endsection

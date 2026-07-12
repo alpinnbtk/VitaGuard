@@ -36,7 +36,7 @@
                 <label for="doctor_id" class="form-label fw-semibold" style="font-size:0.875rem;">Dokter <span class="text-danger">*</span></label>
                 <select name="doctor_id" id="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" style="border-radius:8px;" onchange="onDoctorChanged(this)" required>
                     @foreach($doctors as $doctor)
-                        <option value="{{ $doctor->id }}" data-schedule-url="{{ route('member.doctors.schedules', $doctor->id) }}" {{ old('doctor_id', $booking->doctor_id) == $doctor->id ? 'selected' : '' }}>
+                        <option value="{{ $doctor->id }}" data-schedule-url="{{ route('admin.doctors.schedules', $doctor->id) }}" {{ old('doctor_id', $booking->doctor_id) == $doctor->id ? 'selected' : '' }}>
                             {{ $doctor->name }} ({{ $doctor->specialization }})
                         </option>
                     @endforeach
@@ -136,13 +136,13 @@
                     opt.value = s.id;
                     opt.dataset.day = s.day;
                     opt.textContent = `${s.day} (${start} - ${end})`;
-                    
+
                     // Mark as selected if matches the saved schedule ID
                     if (initial && s.id === CURRENT_SCHEDULE_ID) {
                         opt.selected = true;
                         selectedScheduleDay = s.day;
                     }
-                    
+
                     scheduleSelect.appendChild(opt);
                 });
 

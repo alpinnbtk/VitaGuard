@@ -7,7 +7,7 @@
         <h5><i class="bi bi-pencil-square me-2"></i>Edit Artikel</h5>
     </div>
     <div class="p-4">
-        <form action="{{ route('admin.articles.update', $article) }}" method="POST">
+        <form action="{{ route('admin.articles.update', $article) }}" method="POST" enctype="multipart/form-data">
             @csrf @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label fw-medium">Judul Artikel <span class="text-danger">*</span></label>
@@ -38,6 +38,17 @@
                 <label for="content" class="form-label fw-medium">Konten <span class="text-danger">*</span></label>
                 <textarea name="content" id="content" rows="8" class="form-control @error('content') is-invalid @enderror" required>{{ old('content', $article->content) }}</textarea>
                 @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label fw-medium">Gambar Artikel</label>
+                @if($article->image)
+                    <div class="mb-2">
+                        <img src="{{ asset($article->image) }}" alt="Current Image" style="max-height: 150px; border-radius: 8px;">
+                    </div>
+                @endif
+                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                <small class="text-muted">Biarkan kosong jika tidak ingin mengubah gambar</small>
+                @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
                 <label for="published_at" class="form-label fw-medium">Tanggal Publikasi</label>

@@ -78,7 +78,7 @@
         <div class="row g-3 mb-4 align-items-center">
             <div class="col-auto">
                 @if($doctor->image)
-                    <img src="{{ asset('storage/' . $doctor->image) }}" id="preview-img"
+                    <img src="{{ asset($doctor->image) }}" id="preview-img"
                          class="rounded-circle" style="width:70px; height:70px; object-fit:cover; border:2px solid var(--accent);">
                 @else
                     <div id="preview-placeholder" class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center"

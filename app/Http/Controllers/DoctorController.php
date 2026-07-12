@@ -57,7 +57,7 @@ class DoctorController extends Controller
     public function show(Doctor $doctor)
     {
         $doctor->load(['user', 'transactions.user']);
-        
+
         if (auth()->check() && auth()->user()->role === 'member') {
             return view('member.doctors.show', compact('doctor'));
         }
@@ -87,7 +87,7 @@ class DoctorController extends Controller
             'experience_years' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'rating' => 'nullable|numeric|min:0|max:5',
-            'user_id' => 'nullable|exists:users,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $doctor->update($request->only([
@@ -101,8 +101,13 @@ class DoctorController extends Controller
 
     public function destroy(Doctor $doctor)
     {
-        $doctor->delete();
-        return redirect()->route('admin.doctors.index')
-            ->with('success', 'Dokter berhasil dihapus!');
+        try {
+            $doctor->delete();
+            return redirect()->route('admin.doctors.index')
+                ->with('success', 'Dokter berhasil dihapus!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('admin.doctors.index')
+                ->with('error', 'Tidak dapat menghapus dokter karena data ini sedang digunakan (misal: memiliki riwayat booking).');
+        }
     }
 }

@@ -46,17 +46,30 @@ class ProfileController extends Controller
                 'date_of_birth' => 'nullable|date',
                 'blood_type'    => 'nullable|string|max:5',
                 'address'       => 'nullable|string',
+                'photo'         => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             ]);
 
-            // Update Users Table
+            $imagePath = $user->photo;
+
+            if ($request->hasFile('photo')) {
+                if ($imagePath && file_exists(public_path($imagePath))) {
+                    unlink(public_path($imagePath));
+                }
+
+                $file = $request->file('photo');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/users'), $filename);
+                $imagePath = 'images/users/' . $filename;
+            }
+
             $user->update([
                 'name'         => $request->name,
                 'username'     => $request->username,
                 'email'        => $request->email,
                 'phone_number' => $request->phone_number,
+                'photo'        => $imagePath,
             ]);
 
-            // Update or Create Members Table
             $user->member()->updateOrCreate(
                 ['user_id' => $user->id],
                 [
@@ -125,6 +138,7 @@ class ProfileController extends Controller
     public function doctorUpdate(Request $request)
     {
         if (auth()->check() && auth()->user()->role === 'doctor') {
+
             $user   = auth()->user();
             $doctor = $user->doctor;
 
@@ -143,32 +157,34 @@ class ProfileController extends Controller
                 'image'            => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             ]);
 
-            // --- Update User table ---
+            $imagePath = $user->photo;
+
+            if ($request->hasFile('image')) {
+                if ($imagePath && file_exists(public_path($imagePath))) {
+                    unlink(public_path($imagePath));
+                }
+
+                $file = $request->file('image');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/users'), $filename);
+                $imagePath = 'images/users/' . $filename;
+            }
+
             $user->update([
                 'name'         => $request->name,
                 'email'        => $request->email,
                 'phone_number' => $request->phone_number,
+                'photo'        => $imagePath,
             ]);
 
-            // --- Handle image upload ---
-            $imagePath = $doctor->image; // Keep existing if no new upload
-            if ($request->hasFile('image')) {
-                // Delete old image if it exists (optional: if using local storage)
-                if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-                    Storage::disk('public')->delete($imagePath);
-                }
-                $imagePath = $request->file('image')->store('images/doctors', 'public');
-            }
-
-            // --- Update Doctor table ---
             $doctor->update([
                 'name'             => $request->name,
                 'specialization'   => $request->specialization,
                 'experience_years' => $request->experience_years,
                 'bio'              => $request->bio,
                 'address'          => $request->address,
-                'image'            => $imagePath,
                 'phone_number'     => $request->phone_number,
+                'image'            => $imagePath,
             ]);
 
             return redirect()->route('doctor.profile.show')

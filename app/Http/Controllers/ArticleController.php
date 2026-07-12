@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -18,7 +19,7 @@ class ArticleController extends Controller
             $articles = Article::when($search, function ($query, $search) {
                 return $query->where('title', 'like', "%{$search}%");
             })->latest('published_at')->paginate(6);
-            
+
             return view('member.articles.index', compact('articles'));
         }
 
@@ -41,12 +42,22 @@ class ArticleController extends Controller
             'category_id' => 'required|exists:categories,id',
             'author_id' => 'required|exists:users,id',
             'published_at' => 'nullable|date',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/articles'), $filename);
+            $imagePath = 'images/articles/' . $filename;
+        }
 
         Article::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'content' => $request->content,
+            'image' => $imagePath,
             'author_id' => $request->author_id,
             'category_id' => $request->category_id,
             'published_at' => $request->published_at ?? now(),
@@ -59,11 +70,11 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $article->load(['author', 'category']);
-        
+
         if (auth()->check() && auth()->user()->role === 'member') {
             return view('member.articles.show', compact('article'));
         }
-        
+
         return view('admin.articles.show', compact('article'));
     }
 
@@ -82,12 +93,25 @@ class ArticleController extends Controller
             'category_id' => 'required|exists:categories,id',
             'author_id' => 'required|exists:users,id',
             'published_at' => 'nullable|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        $imagePath = $article->image;
+        if ($request->hasFile('image')) {
+            if ($imagePath && file_exists(public_path($imagePath))) {
+                unlink(public_path($imagePath));
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/articles'), $filename);
+            $imagePath = 'images/articles/' . $filename;
+        }
 
         $article->update([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'content' => $request->content,
+            'image' => $imagePath,
             'author_id' => $request->author_id,
             'category_id' => $request->category_id,
             'published_at' => $request->published_at ?? $article->published_at,
@@ -99,8 +123,12 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        if ($article->image && file_exists(public_path($article->image))) {
+            unlink(public_path($article->image));
+        }
         $article->delete();
-        return redirect()->route('admin.articles.index')
+        return redirect()
+            ->route('admin.articles.index')
             ->with('success', 'Artikel berhasil dihapus!');
     }
 }
