@@ -14,26 +14,26 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            // ===== ADMIN =====
             [
                 'name' => 'Administrator',
                 'username' => 'admin',
                 'password' => Hash::make('password123'),
                 'email' => 'admin@vitaguard.com',
                 'phone_number' => '081200000000',
+                'photo' => 'http',
                 'role' => 'admin',
                 'email_verified_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now()
             ],
 
-            // ===== MEMBER =====
             [
                 'name' => 'Andika Pratama',
                 'username' => 'andika92',
                 'password' => Hash::make('password123'),
                 'email' => 'andika.pratama@gmail.com',
                 'phone_number' => '081234567890',
+                'photo' => 'http',
                 'role' => 'member',
                 'email_verified_at' => now(),
                 'created_at' => now(),
@@ -45,6 +45,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'siti.rahmawati@gmail.com',
                 'phone_number' => '082134567891',
+                'photo' => 'http',
                 'role' => 'member',
                 'email_verified_at' => null,
                 'created_at' => now(),
@@ -56,6 +57,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'budi.santoso@yahoo.com',
                 'phone_number' => '081298765432',
+                'photo' => 'http',
                 'role' => 'member',
                 'email_verified_at' => now(),
                 'created_at' => now(),
@@ -67,6 +69,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'dewi.lestari@gmail.com',
                 'phone_number' => null,
+                'photo' => 'http',
                 'role' => 'member',
                 'email_verified_at' => null,
                 'created_at' => now(),
@@ -78,19 +81,20 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'rizky.firmansyah@gmail.com',
                 'phone_number' => '083812345678',
+                'photo' => 'http',
                 'role' => 'member',
                 'email_verified_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now()
             ],
 
-            // ===== DOCTOR =====
             [
                 'name' => 'Dr. Ahmad Hidayat',
                 'username' => 'ahmad77',
                 'password' => Hash::make('password123'),
                 'email' => 'ahmad.hidayat@hospital.com',
                 'phone_number' => '081322334455',
+                'photo' => 'http',
                 'role' => 'doctor',
                 'email_verified_at' => now(),
                 'created_at' => now(),
@@ -102,6 +106,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'sari.wulandari@clinic.com',
                 'phone_number' => '082233445566',
+                'photo' => 'http',
                 'role' => 'doctor',
                 'email_verified_at' => null,
                 'created_at' => now(),
@@ -113,6 +118,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'bambang.sutrisno@medic.id',
                 'phone_number' => '081355667788',
+                'photo' => 'http',
                 'role' => 'doctor',
                 'email_verified_at' => now(),
                 'created_at' => now(),
@@ -124,6 +130,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'lina.kartika@healthcare.id',
                 'phone_number' => null,
+                'photo' => 'http',
                 'role' => 'doctor',
                 'email_verified_at' => null,
                 'created_at' => now(),
@@ -135,6 +142,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => 'rizal.maulana@hospital.com',
                 'phone_number' => '085712345678',
+                'photo' => 'http',
                 'role' => 'doctor',
                 'email_verified_at' => now(),
                 'created_at' => now(),

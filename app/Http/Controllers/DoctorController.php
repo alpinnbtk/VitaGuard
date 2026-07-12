@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
@@ -9,8 +9,17 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (auth()->check() && auth()->user()->role === 'member') {
+            $search = $request->input('search');
+            $doctors = Doctor::when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                             ->orWhere('specialization', 'like', "%{$search}%");
+            })->orderBy('name', 'asc')->paginate(10);
+            return view('member.doctors.index', compact('doctors'));
+        }
+
         $doctors = Doctor::with('user')->latest()->get();
         return view('admin.doctors.index', compact('doctors'));
     }
@@ -48,6 +57,11 @@ class DoctorController extends Controller
     public function show(Doctor $doctor)
     {
         $doctor->load(['user', 'transactions.user']);
+        
+        if (auth()->check() && auth()->user()->role === 'member') {
+            return view('member.doctors.show', compact('doctor'));
+        }
+
         return view('admin.doctors.show', compact('doctor'));
     }
 

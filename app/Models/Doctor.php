@@ -13,14 +13,15 @@ class Doctor extends Model
         'user_id',
         'name',
         'specialization',
-        'email',
-        'phone_number',
         'gender',
-        'address',
         'experience_years',
+        'bio',
         'price',
         'rating',
-        'photo',
+        'email',
+        'phone_number',
+        'address',
+        'image',
     ];
 
     protected $casts = [
@@ -31,6 +32,28 @@ class Doctor extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function doctor_schedules()
+    {
+        return $this->hasMany(DoctorSchedules::class, 'doctor_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'doctor_id');
+    }
+
+    public function consultations()
+    {
+        return $this->hasManyThrough(
+            Consultation::class,
+            Booking::class,
+            'doctor_id',         // FK di tabel bookings → merujuk ke doctors.id
+            'booking_id',        // FK di tabel consultations → merujuk ke bookings.id
+            'id',                // PK di tabel doctors
+            'id'                 // PK di tabel bookings
+        );
     }
 
     public function transactions()

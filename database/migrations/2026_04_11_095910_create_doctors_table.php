@@ -13,17 +13,14 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->string('name');
             $table->string('specialization');
-            $table->string('email')->unique();
-            $table->string('phone_number', 20);
             $table->enum('gender', ['male', 'female']);
-            $table->text('address')->nullable();
             $table->integer('experience_years')->default(0);
+            $table->text('bio')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('rating', 3, 2)->nullable();
-            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

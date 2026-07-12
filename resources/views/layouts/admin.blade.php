@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-fav.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') — VitaGuard Admin</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -23,17 +22,20 @@
             --accent-dark: #0284c7;
         }
 
-        * { font-family: 'Inter', sans-serif; }
+        * {
+            font-family: 'Inter', sans-serif;
+        }
 
         body {
             background: #f1f5f9;
             min-height: 100vh;
         }
 
-        /* ── Sidebar ── */
         .sidebar {
             position: fixed;
-            top: 0; left: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
             width: var(--sidebar-width);
             background: var(--sidebar-bg);
             color: #cbd5e1;
@@ -47,11 +49,12 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .sidebar-brand .logo-icon {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #0ea5e9, #06b6d4);
             border-radius: 10px;
             display: flex;
@@ -120,7 +123,6 @@
             text-align: center;
         }
 
-        /* ── Main content ── */
         .main-content {
             margin-left: var(--sidebar-width);
             min-height: 100vh;
@@ -149,7 +151,6 @@
             padding: 2rem;
         }
 
-        /* ── Cards + Tables ── */
         .stat-card {
             background: white;
             border-radius: 12px;
@@ -160,11 +161,12 @@
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
 
         .stat-card .stat-icon {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -228,23 +230,29 @@
             border-color: var(--accent-dark);
         }
 
-        /* ── Alert ── */
         .alert {
             border-radius: 10px;
             border: none;
             font-size: 0.875rem;
         }
 
-        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.show { transform: translateX(0); }
-            .main-content { margin-left: 0; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <div class="logo-icon">
@@ -259,66 +267,87 @@
         <nav class="sidebar-menu">
             <div class="menu-label">Main</div>
             <a href="{{ route('admin.dashboard') }}"
-               class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
 
             <div class="menu-label mt-3">Master Data</div>
             <a href="{{ route('admin.users.index') }}"
-               class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <i class="bi bi-people-fill"></i> Users
             </a>
             <a href="{{ route('admin.doctors.index') }}"
-               class="nav-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
                 <i class="bi bi-hospital"></i> Dokter
             </a>
             <a href="{{ route('admin.categories.index') }}"
-               class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <i class="bi bi-tag-fill"></i> Kategori
             </a>
             <a href="{{ route('admin.articles.index') }}"
-               class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
                 <i class="bi bi-newspaper"></i> Artikel
             </a>
 
             <div class="menu-label mt-3">Transaksi</div>
-            <a href="{{ route('admin.transactions.index') }}"
-               class="nav-link {{ request()->routeIs('admin.transactions.*') ? 'active' : '' }}">
-                <i class="bi bi-receipt-cutoff"></i> Konsultasi
+            <a href="{{ route('admin.bookings.index') }}"
+                class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
+                <i class="bi bi-calendar-check-fill"></i> Daftar Konsultasi
             </a>
         </nav>
     </aside>
 
-    <!-- Main content -->
     <div class="main-content">
         <header class="topbar">
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-sm btn-light d-md-none" onclick="document.getElementById('sidebar').classList.toggle('show')">
+                <button class="btn btn-sm btn-light d-md-none"
+                    onclick="document.getElementById('sidebar').classList.toggle('show')">
                     <i class="bi bi-list"></i>
                 </button>
                 <h1>@yield('title', 'Dashboard')</h1>
             </div>
-            <div class="d-flex align-items-center gap-2">
-                <span class="text-muted small">Admin</span>
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:35px;height:35px;">
-                    <i class="bi bi-person-fill"></i>
+            <div class="d-flex align-items-center gap-3">
+                {{-- Info user --}}
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                        style="width:35px;height:35px;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="d-none d-md-block">
+                        <div style="font-size:0.825rem; font-weight:600; color:#0f172a; line-height:1.2;">
+                            {{ Auth::user()->name }}
+                        </div>
+                        <div style="font-size:0.7rem; color:#64748b; text-transform:uppercase; letter-spacing:0.5px;">
+                            Administrator
+                        </div>
+                    </div>
                 </div>
+
+                {{-- Logout button --}}
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                        style="font-size:0.775rem; border-radius:6px;" onclick="return confirm('Yakin ingin keluar?')">
+                        <i class="bi bi-box-arrow-right me-1"></i>
+                        <span class="d-none d-md-inline">Keluar</span>
+                    </button>
+                </form>
             </div>
         </header>
 
         <div class="content-area">
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
-            @if($errors->any())
+            @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
                     <ul class="mb-0">
-                        @foreach($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
@@ -330,8 +359,8 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 </body>
+
 </html>
