@@ -59,7 +59,7 @@
                 <div class="card-body p-4">
                     <h6 class="fw-bold mb-3" style="color: var(--dark);">Dokter</h6>
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <img src="{{ $booking->doctor->image ? asset('storage/' . $booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
+                        <img src="{{ $booking->doctor->image_url }}"
                              class="rounded-circle"
                              style="width: 64px; height: 64px; object-fit: cover; border: 2px solid var(--accent);">
                         <div>

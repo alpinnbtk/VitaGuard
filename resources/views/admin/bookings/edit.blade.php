@@ -53,7 +53,7 @@
 
             <div class="col-md-6">
                 <label for="booking_date" class="form-label fw-semibold" style="font-size:0.875rem;">Tanggal Konsultasi <span class="text-danger">*</span></label>
-                <input type="date" name="booking_date" id="booking_date" class="form-control @error('booking_date') is-invalid @enderror" style="border-radius:8px;" min="{{ date('Y-m-d', strtotime($booking->booking_date)) }}" value="{{ old('booking_date', $booking->booking_date) }}" required>
+                <input type="date" name="booking_date" id="booking_date" class="form-control @error('booking_date') is-invalid @enderror" style="border-radius:8px;" min="{{ \Carbon\Carbon::parse($booking->booking_date)->format('Y-m-d') }}" value="{{ old('booking_date', \Carbon\Carbon::parse($booking->booking_date)->format('Y-m-d')) }}" required>
                 @error('booking_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 <small id="date-hint" class="text-muted d-block mt-1" style="font-size:0.78rem;"></small>
             </div>

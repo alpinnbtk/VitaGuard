@@ -348,7 +348,7 @@
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center gap-2">
                     @if(Auth::user()->doctor && Auth::user()->doctor->image)
-                        <img src="{{ asset(Auth::user()->doctor->image) }}"
+                        <img src="{{ Auth::user()->doctor->image_url }}"
                             alt="{{ Auth::user()->name }}"
                             class="rounded-circle shadow-sm"
                             style="width:35px; height:35px; object-fit:cover;">

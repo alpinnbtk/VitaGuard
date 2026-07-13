@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Consultation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
@@ -26,7 +27,7 @@ class ConsultationController extends Controller
 
             $consultations = Consultation::with(['booking.user', 'booking.doctor'])
                 ->where('status', 'ongoing')
-                ->whereHas('booking', fn($q) => $q->where('doctor_id', $doctor->id))
+                ->whereHas('booking', fn ($q) => $q->where('doctor_id', $doctor->id))
                 ->latest()
                 ->paginate(10);
 
@@ -42,7 +43,7 @@ class ConsultationController extends Controller
 
     public function show(Consultation $consultation)
     {
-        $user    = auth()->user();
+        $user = auth()->user();
         $booking = $consultation->booking()->with(['doctor', 'user'])->firstOrFail();
 
         if ($user->role === 'member' && $booking->user_id !== $user->id) {
@@ -74,7 +75,7 @@ class ConsultationController extends Controller
             'booking_id' => 'required|exists:bookings,id',
         ]);
 
-        $user    = auth()->user();
+        $user = auth()->user();
         $booking = Booking::findOrFail($request->booking_id);
 
         if ($booking->user_id !== $user->id) {
@@ -91,9 +92,19 @@ class ConsultationController extends Controller
                 ->with('info', 'Sesi konsultasi sudah ada.');
         }
 
+        $dateStr = Carbon::parse($booking->booking_date)->format('Y-m-d');
+        $timeStr = Carbon::parse($booking->booking_time)->format('H:i:s');
+        $scheduledDatetime = Carbon::parse($dateStr . ' ' . $timeStr);
+        $earliestStart = $scheduledDatetime->copy()->subMinutes(15);
+
+        if (now()->lt($earliestStart)) {
+            return redirect()->route('member.consultations.index')
+                ->with('error', 'Konsultasi hanya dapat dimulai paling cepat 15 menit sebelum jadwal Anda ('.$scheduledDatetime->format('d M Y, H:i').').');
+        }
+
         $consultation = Consultation::create([
             'booking_id' => $booking->id,
-            'status'     => 'ongoing',
+            'status' => 'ongoing',
             'started_at' => now(),
         ]);
 
@@ -103,7 +114,7 @@ class ConsultationController extends Controller
 
     public function update(Request $request, Consultation $consultation)
     {
-        $user    = auth()->user();
+        $user = auth()->user();
         $booking = $consultation->booking()->with('doctor')->firstOrFail();
 
         if ($user->role === 'doctor' && $booking->doctor->user_id !== $user->id) {
@@ -119,9 +130,9 @@ class ConsultationController extends Controller
         ]);
 
         $consultation->update([
-            'status'   => 'closed',
+            'status' => 'closed',
             'ended_at' => now(),
-            'summary'  => $request->summary,
+            'summary' => $request->summary,
         ]);
 
         $booking->update(['status' => 'completed']);
@@ -132,12 +143,12 @@ class ConsultationController extends Controller
 
     public function history()
     {
-        $user   = auth()->user();
+        $user = auth()->user();
         $doctor = $user->doctor;
 
         $consultations = Consultation::with(['booking.user', 'booking.doctor'])
             ->where('status', 'closed')
-            ->whereHas('booking', fn($q) => $q->where('doctor_id', $doctor->id))
+            ->whereHas('booking', fn ($q) => $q->where('doctor_id', $doctor->id))
             ->latest('ended_at')
             ->paginate(10);
 

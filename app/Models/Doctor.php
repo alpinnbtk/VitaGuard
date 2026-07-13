@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Doctor extends Model
 {
@@ -59,5 +60,18 @@ class Doctor extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if (! $this->image) {
+            return asset('images/doctors/default-article.jpg');
+        }
+
+        if (Str::startsWith($this->image, 'images/doctors/') && file_exists(public_path($this->image))) {
+            return asset($this->image);
+        }
+
+        return asset('storage/'.$this->image);
     }
 }

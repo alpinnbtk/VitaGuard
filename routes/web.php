@@ -32,6 +32,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 // Buat Admin ye
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::resource('articles', ArticleController::class);
     Route::resource('doctors', DoctorController::class);
@@ -41,6 +44,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
     Route::resource('consultations', ConsultationController::class)->only(['index', 'show']);
     Route::resource('users', UserController::class)->except(['show']);
+    Route::resource('schedules', \App\Http\Controllers\DoctorScheduleController::class);
     Route::get('/doctors/{doctor}/schedules', [BookingController::class, 'getSchedules'])->name('doctors.schedules');
     // Route::resource('transactions',   TransactionController::class);
     Route::get('/member/profile', [App\Http\Controllers\MemberController::class, 'show'])->name('member.profile.show');
@@ -50,6 +54,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 // Buat Doctor ye
 Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->name('doctor.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('doctor.home');
+    });
     Route::get('/home', [HomeController::class, 'doctorHome'])->name('home');
     Route::resource('bookings', BookingController::class)->only(['index', 'show']);
     Route::patch('/bookings/{booking}/confirm', [BookingController::class, 'confirm'])->name('bookings.confirm');
@@ -63,6 +70,9 @@ Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->name('doctor.')->g
 
 // Buat Member ye
 Route::middleware(['auth', 'role:member'])->prefix('member')->name('member.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('member.home');
+    });
     Route::get('/home', [HomeController::class, 'memberHome'])->name('home');
     Route::resource('articles', ArticleController::class)->only(['index', 'show']);
     Route::resource('doctors', DoctorController::class)->only(['index', 'show']);

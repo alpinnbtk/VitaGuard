@@ -280,6 +280,10 @@
                 class="nav-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
                 <i class="bi bi-hospital"></i> Dokter
             </a>
+            <a href="{{ route('admin.schedules.index') }}"
+                class="nav-link {{ request()->routeIs('admin.schedules.*') ? 'active' : '' }}">
+                <i class="bi bi-calendar-range-fill"></i> Jadwal Dokter
+            </a>
             <a href="{{ route('admin.categories.index') }}"
                 class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <i class="bi bi-tag-fill"></i> Kategori

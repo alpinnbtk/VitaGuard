@@ -28,7 +28,7 @@
     <div class="col-lg-4">
         <div class="card-custom p-4 text-center mb-4">
             @if($doctor->image)
-                <img src="{{ asset('storage/' . $doctor->image) }}"
+                <img src="{{ $doctor->image_url }}"
                      class="rounded-circle mb-3"
                      style="width:100px; height:100px; object-fit:cover; border:3px solid var(--accent);">
             @else
