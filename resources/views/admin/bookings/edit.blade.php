@@ -18,7 +18,6 @@
         @method('PUT')
 
         <div class="row g-3 mb-4">
-            {{-- Member --}}
             <div class="col-md-6">
                 <label for="user_id" class="form-label fw-semibold" style="font-size:0.875rem;">Member <span class="text-danger">*</span></label>
                 <select name="user_id" id="user_id" class="form-select @error('user_id') is-invalid @enderror" style="border-radius:8px;" required>
@@ -31,7 +30,6 @@
                 @error('user_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Doctor --}}
             <div class="col-md-6">
                 <label for="doctor_id" class="form-label fw-semibold" style="font-size:0.875rem;">Dokter <span class="text-danger">*</span></label>
                 <select name="doctor_id" id="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" style="border-radius:8px;" onchange="onDoctorChanged(this)" required>
@@ -44,18 +42,15 @@
                 @error('doctor_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Doctor Schedule --}}
             <div class="col-md-6">
                 <label for="doctor_schedule_id" class="form-label fw-semibold" style="font-size:0.875rem;">Jadwal Dokter <span class="text-danger">*</span></label>
                 <select name="doctor_schedule_id" id="doctor_schedule_id" class="form-select @error('doctor_schedule_id') is-invalid @enderror" style="border-radius:8px;" onchange="onScheduleChanged(this)" required>
-                    {{-- Schedules will load dynamically. We add a default selected slot on load --}}
                     <option value="">-- Pilih Jadwal --</option>
                 </select>
                 @error('doctor_schedule_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 <small id="schedules-loading" class="text-primary d-none"><i class="spinner-border spinner-border-sm me-1"></i>Memuat jadwal...</small>
             </div>
 
-            {{-- Booking Date --}}
             <div class="col-md-6">
                 <label for="booking_date" class="form-label fw-semibold" style="font-size:0.875rem;">Tanggal Konsultasi <span class="text-danger">*</span></label>
                 <input type="date" name="booking_date" id="booking_date" class="form-control @error('booking_date') is-invalid @enderror" style="border-radius:8px;" min="{{ date('Y-m-d', strtotime($booking->booking_date)) }}" value="{{ old('booking_date', $booking->booking_date) }}" required>
@@ -63,7 +58,6 @@
                 <small id="date-hint" class="text-muted d-block mt-1" style="font-size:0.78rem;"></small>
             </div>
 
-            {{-- Status --}}
             <div class="col-md-6">
                 <label for="status" class="form-label fw-semibold" style="font-size:0.875rem;">Status Konsultasi <span class="text-danger">*</span></label>
                 <select name="status" id="status" class="form-select @error('status') is-invalid @enderror" style="border-radius:8px;" required>
@@ -75,7 +69,6 @@
                 @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Complaint --}}
             <div class="col-12">
                 <label for="complaint" class="form-label fw-semibold" style="font-size:0.875rem;">Keluhan</label>
                 <textarea name="complaint" id="complaint" rows="4" class="form-control @error('complaint') is-invalid @enderror" style="border-radius:8px;" placeholder="Tuliskan keluhan pasien di sini...">{{ old('complaint', $booking->complaint) }}</textarea>
@@ -137,7 +130,6 @@
                     opt.dataset.day = s.day;
                     opt.textContent = `${s.day} (${start} - ${end})`;
 
-                    // Mark as selected if matches the saved schedule ID
                     if (initial && s.id === CURRENT_SCHEDULE_ID) {
                         opt.selected = true;
                         selectedScheduleDay = s.day;
@@ -171,7 +163,6 @@
         }
     }
 
-    // Submit form validation
     document.getElementById('adminBookingForm').addEventListener('submit', function (e) {
         const dateVal = document.getElementById('booking_date').value;
         const scheduleSelect = document.getElementById('doctor_schedule_id');
@@ -187,7 +178,6 @@
         }
     });
 
-    // Run on load to populate current doctor schedule
     window.addEventListener('DOMContentLoaded', () => {
         onDoctorChanged(document.getElementById('doctor_id'), true);
     });

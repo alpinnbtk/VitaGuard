@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    /**
-     * Member: list their bookings (all statuses).
-     */
     public function index()
     {
         $user = auth()->user();
@@ -27,7 +24,6 @@ class BookingController extends Controller
             return view('member.booking.index', compact('bookings'));
         }
 
-        // Doctor: list bookings assigned to them
         if ($user->role === 'doctor') {
             $bookings = Booking::with('user')
                 ->where('doctor_id', $user->doctor->id)
@@ -47,9 +43,6 @@ class BookingController extends Controller
         return view('admin.bookings.index', compact('bookings'));
     }
 
-    /**
-     * Show the booking creation form (Member or Admin).
-     */
     public function create()
     {
         $user = auth()->user();
@@ -68,9 +61,6 @@ class BookingController extends Controller
         return abort(403);
     }
 
-    /**
-     * Store a new booking (Member or Admin).
-     */
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -132,9 +122,6 @@ class BookingController extends Controller
         return abort(403);
     }
 
-    /**
-     * Show a specific booking detail.
-     */
     public function show($id)
     {
         $booking = Booking::with(['doctor', 'user', 'doctorSchedule', 'consultation'])->findOrFail($id);
@@ -160,9 +147,6 @@ class BookingController extends Controller
         return view('member.booking.show', compact('booking'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $user = auth()->user();
@@ -177,9 +161,6 @@ class BookingController extends Controller
         abort(403);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $user = auth()->user();
@@ -217,9 +198,6 @@ class BookingController extends Controller
         abort(403);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $user = auth()->user();
@@ -235,16 +213,10 @@ class BookingController extends Controller
         abort(403);
     }
 
-    /**
-     * Confirm a pending booking (Doctor or Admin).
-     * - Doctor: can only confirm their own bookings.
-     * - Admin : can confirm any booking.
-     */
     public function confirm(Booking $booking)
     {
         $user = auth()->user();
 
-        // Guard: doctor can only confirm their own bookings
         if ($user->role === 'doctor' && $booking->doctor->user_id !== $user->id) {
             abort(403);
         }
@@ -266,16 +238,10 @@ class BookingController extends Controller
             ->with('success', "Booking pasien {$booking->user->name} berhasil dikonfirmasi.");
     }
 
-    /**
-     * Cancel a pending/confirmed booking (Doctor or Admin).
-     * - Doctor: can only cancel their own bookings.
-     * - Admin : can cancel any booking.
-     */
     public function cancel(Booking $booking)
     {
         $user = auth()->user();
 
-        // Guard: doctor can only cancel their own bookings
         if ($user->role === 'doctor' && $booking->doctor->user_id !== $user->id) {
             abort(403);
         }
@@ -297,12 +263,6 @@ class BookingController extends Controller
             ->with('success', "Booking pasien {$booking->user->name} berhasil dibatalkan.");
     }
 
-    /**
-     * AJAX endpoint: return all schedules for a given doctor as JSON.
-     * Used by the dynamic booking form to display available slots.
-     *
-     * @return JsonResponse
-     */
     public function getSchedules(Doctor $doctor)
     {
         $daysOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];

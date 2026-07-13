@@ -8,31 +8,27 @@ use Illuminate\Support\Facades\DB;
 class ConsultationMessagesSeeder extends Seeder
 {
     /**
-     * Seed sample chat messages for the ongoing consultation (id=1).
-     * Booking 1 → user_id=1 (Andika, member), doctor_id=1 (Ahmad, user_id=7).
+     * Run the database seeds.
      */
     public function run(): void
     {
         DB::table('consultation_messages')->insert([
-            // Member opens the conversation
             [
                 'consultation_id' => 1,
-                'sender_id'       => 2, // Andika Pratama (member)
+                'sender_id'       => 2,
                 'message'         => 'Selamat pagi, Dokter. Saya ingin konsultasi mengenai keluhan yang saya alami.',
                 'sent_at'         => now()->subMinutes(30),
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
-            // Doctor replies
             [
                 'consultation_id' => 1,
-                'sender_id'       => 7, // Dr. Ahmad Hidayat (doctor)
+                'sender_id'       => 7,
                 'message'         => 'Selamat pagi! Silakan ceritakan keluhan Anda secara detail.',
                 'sent_at'         => now()->subMinutes(28),
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
-            // Member continues
             [
                 'consultation_id' => 1,
                 'sender_id'       => 2,
@@ -41,7 +37,6 @@ class ConsultationMessagesSeeder extends Seeder
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
-            // Doctor advises
             [
                 'consultation_id' => 1,
                 'sender_id'       => 7,
@@ -50,7 +45,6 @@ class ConsultationMessagesSeeder extends Seeder
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
-            // Member answers
             [
                 'consultation_id' => 1,
                 'sender_id'       => 2,

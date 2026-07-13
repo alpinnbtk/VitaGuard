@@ -6,7 +6,6 @@
     <div class="card-header">
         <h5><i class="bi bi-calendar-check me-2"></i>Daftar Konsultasi</h5>
         <div class="d-flex gap-3 align-items-center">
-            {{-- Status filter --}}
             <form method="GET" class="d-flex gap-2 m-0">
                 <select name="status" class="form-select form-select-sm" style="border-radius:8px; width:auto;"
                         onchange="this.form.submit()">
@@ -87,13 +86,11 @@
                                 </form>
                             @endif
 
-                            {{-- Edit --}}
                             <a href="{{ route('admin.bookings.edit', $booking->id) }}" class="btn btn-sm btn-outline-warning"
                                style="border-radius:8px; font-size:0.75rem; padding: 4px 8px;">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
 
-                            {{-- Delete --}}
                             <form action="{{ route('admin.bookings.destroy', $booking->id) }}" method="POST"
                                   onsubmit="return confirm('Yakin ingin menghapus data konsultasi ini?')">
                                 @csrf

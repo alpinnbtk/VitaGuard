@@ -13,7 +13,6 @@
 </div>
 
 <div class="row g-4">
-    {{-- LEFT: Patient & booking info --}}
     <div class="col-lg-4">
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Info Pasien</h6>
@@ -42,7 +41,6 @@
             </ul>
         </div>
 
-        {{-- Close Consultation Button (only if ongoing) --}}
         @if($consultation->status === 'ongoing')
         <div class="card-custom p-4">
             <h6 class="fw-semibold mb-2" style="color:#0f172a;">Tutup Konsultasi</h6>
@@ -63,10 +61,8 @@
         @endif
     </div>
 
-    {{-- RIGHT: Chat window --}}
     <div class="col-lg-8">
         <div class="card-custom d-flex flex-column" style="height:580px;">
-            {{-- Chat Header --}}
             <div class="d-flex align-items-center gap-3 px-4 py-3" style="background:var(--accent); border-radius:12px 12px 0 0;">
                 <i class="bi bi-chat-dots-fill text-white fs-5"></i>
                 <span class="text-white fw-semibold">Percakapan dengan {{ $booking->user->name ?? 'Pasien' }}</span>
@@ -77,7 +73,6 @@
                 @endif
             </div>
 
-            {{-- Messages --}}
             <div id="chat-box" class="flex-grow-1 p-4 overflow-auto" style="background:#f8fafc;">
                 @forelse($messages as $msg)
                     @php $isMine = $msg->sender_id === auth()->id(); @endphp
@@ -107,7 +102,6 @@
                 @endforelse
             </div>
 
-            {{-- Input --}}
             @if($consultation->status === 'ongoing')
             <div class="px-4 py-3 border-top bg-white" style="border-radius:0 0 12px 12px;">
                 <div class="d-flex gap-2">
@@ -130,7 +124,6 @@
     </div>
 </div>
 
-{{-- Close Consultation Modal --}}
 @if($consultation->status === 'ongoing')
 <div class="modal fade" id="closeModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">

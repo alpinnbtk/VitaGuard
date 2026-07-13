@@ -8,16 +8,8 @@ use Illuminate\Http\Request;
 
 class ConsultationMessageController extends Controller
 {
-    /**
-     * Fetch all messages for a given consultation (AJAX polling).
-     * Returns a JSON array of message objects with sender info.
-     *
-     * @param  \App\Models\Consultation  $consultation
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index(Consultation $consultation)
     {
-        // Ensure only participants can read messages
         $user   = auth()->user();
         $booking = $consultation->booking;
 
@@ -48,22 +40,12 @@ class ConsultationMessageController extends Controller
         return response()->json($messages);
     }
 
-    /**
-     * Store a new message in a consultation (AJAX).
-     * Validates the consultation is still ongoing and the sender is a participant.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consultation  $consultation
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request, Consultation $consultation)
     {
-        // Guard: consultation must be active
         if ($consultation->status !== 'ongoing') {
             return response()->json(['error' => 'Konsultasi sudah ditutup.'], 422);
         }
 
-        // Guard: only participants can send messages
         $user    = auth()->user();
         $booking = $consultation->booking;
 

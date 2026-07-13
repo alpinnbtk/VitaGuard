@@ -171,7 +171,6 @@
 </head>
 <body>
     <div class="error-container">
-        {{-- Brand --}}
         <a href="{{ url('/') }}" class="brand">
             <div class="brand-icon">
                 <i class="bi bi-heart-pulse"></i>
@@ -179,14 +178,12 @@
             <span class="brand-text">VitaGuard</span>
         </a>
 
-        {{-- Icon --}}
         <div class="error-icon-wrap">
             <div class="error-circle">
                 <i class="bi bi-shield-lock-fill"></i>
             </div>
         </div>
 
-        {{-- Code & Message --}}
         <div class="error-code">403</div>
         <div class="divider"></div>
         <h1 class="error-title">Akses Ditolak</h1>
@@ -195,7 +192,6 @@
             Pastikan Anda masuk dengan akun yang sesuai dengan peran yang diizinkan.
         </p>
 
-        {{-- Action Buttons --}}
         <div class="error-actions">
             <a href="javascript:history.back()" class="btn-back btn-ghost">
                 <i class="bi bi-arrow-left"></i> Kembali

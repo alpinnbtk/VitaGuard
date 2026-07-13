@@ -37,7 +37,6 @@
                           ($booking->status === 'confirmed' ? '#2bb3a7' :
                           ($booking->status === 'completed' ? '#123852' : '#dc3545')) }};">
                     <div class="card-body">
-                        {{-- Status + Date --}}
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="badge" style="
                                 background-color: {{ $booking->status === 'pending'   ? '#fff3cd' :
@@ -57,7 +56,6 @@
                             </small>
                         </div>
 
-                        {{-- Doctor Info --}}
                         <div class="d-flex align-items-center mb-3">
                             <img src="{{ $booking->doctor->image ? asset($booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
                                  class="rounded-circle me-3"
@@ -68,7 +66,6 @@
                             </div>
                         </div>
 
-                        {{-- Complaint --}}
                         @if($booking->complaint)
                         <div class="p-3 mb-3" style="background-color: #f8f9fa; border-radius: 10px;">
                             <small class="text-muted d-block mb-1"><strong>Keluhan:</strong></small>
@@ -76,11 +73,9 @@
                         </div>
                         @endif
 
-                        {{-- Action Buttons --}}
                         <div class="d-flex gap-2 mt-2">
                             @if($booking->status === 'confirmed')
                                 @if($booking->consultation)
-                                    {{-- Consultation already exists, go to chat --}}
                                     <a href="{{ route('member.consultations.show', $booking->consultation->id) }}"
                                        class="btn btn-sm text-white"
                                        style="background:var(--accent); border-radius:20px;">
@@ -91,7 +86,6 @@
                                         @endif
                                     </a>
                                 @else
-                                    {{-- Start a new consultation session --}}
                                     <form action="{{ route('member.consultations.store') }}" method="POST" class="m-0">
                                         @csrf
                                         <input type="hidden" name="booking_id" value="{{ $booking->id }}">

@@ -25,9 +25,6 @@ class ConsultationMessages extends Model
         return $this->belongsTo(Consultation::class);
     }
 
-    /**
-     * The user who sent this message (member or doctor).
-     */
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');

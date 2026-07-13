@@ -87,7 +87,6 @@
 </head>
 <body>
 
-    {{-- NAVBAR --}}
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('member.home') }}">
@@ -128,7 +127,6 @@
                     </li>
                 </ul>
 
-                {{-- User Section --}}
                 <div class="d-flex align-items-center gap-3">
                     <div class="user-badge">
                         @if(Auth::user()->photo)

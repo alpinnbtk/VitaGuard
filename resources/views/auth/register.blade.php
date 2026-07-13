@@ -200,17 +200,14 @@
 <body>
     <div class="auth-wrapper">
 
-        {{-- Brand --}}
         <div class="auth-brand">
             <img src="{{ asset('images/logo.png') }}" alt="Logo VitaGuard">
         </div>
 
-        {{-- Card --}}
         <div class="auth-card">
             <h5>Buat akun baru</h5>
             <p class="subtitle">Daftarkan diri Anda untuk mengakses layanan kesehatan</p>
 
-            {{-- Alert Error --}}
             @if($errors->any())
                 <div class="alert alert-danger mb-3">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -225,13 +222,11 @@
             <form action="{{ route('register') }}" method="POST">
                 @csrf
 
-                {{-- Informasi Akun --}}
                 <div class="section-divider">
                     <span>Informasi Akun</span>
                     <hr>
                 </div>
 
-                {{-- Name --}}
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Lengkap</label>
                     <input
@@ -249,7 +244,6 @@
                     @enderror
                 </div>
 
-                {{-- Username --}}
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input
@@ -266,7 +260,6 @@
                     @enderror
                 </div>
 
-                {{-- Email --}}
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input
@@ -283,7 +276,6 @@
                     @enderror
                 </div>
 
-                {{-- Phone --}}
                 <div class="mb-3">
                     <label for="phone_number" class="form-label">
                         Nomor Telepon
@@ -302,7 +294,6 @@
                     @enderror
                 </div>
 
-                {{-- Password --}}
                 <div class="section-divider">
                     <span>Keamanan</span>
                     <hr>
@@ -333,7 +324,6 @@
                     <div class="strength-text" id="strengthText"></div>
                 </div>
 
-                {{-- Confirm Password --}}
                 <div class="mb-4">
                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                     <div class="input-group">
@@ -351,14 +341,12 @@
                     </div>
                 </div>
 
-                {{-- Submit --}}
                 <button type="submit" class="btn btn-primary w-100">
                     <i class="bi bi-person-plus-fill me-2"></i>Buat Akun
                 </button>
             </form>
         </div>
 
-        {{-- Footer --}}
         <div class="auth-footer">
             Sudah punya akun?
             <a href="{{ route('login') }}">Masuk di sini</a>

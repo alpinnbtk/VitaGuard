@@ -52,17 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    /**
-     * All bookings made by this user (member).
-     */
     public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
 
-    /**
-     * All chat messages sent by this user.
-     */
     public function sentMessages()
     {
         return $this->hasMany(ConsultationMessages::class, 'sender_id');

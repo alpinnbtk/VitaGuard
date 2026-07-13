@@ -4,16 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>VitaGuard Health Platform</title>
-    
-    <!-- Memanggil favicon dari public/images/logo-fav.png -->
+
     <link rel="icon" type="image/png" href="{{ asset('images/logo-fav.png') }}">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Memanggil file CSS dari public/css/app.css tanpa Vite -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
@@ -21,11 +18,9 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-logo">
-      <!-- Memanggil logo utama dari public/images/logo.png -->
       <img src="{{ asset('images/logo.png') }}" alt="Logo VitaGuard">
     </a>
     <div class="nav-actions">
-      <!-- Menggunakan route Laravel untuk Register dan Login -->
       <a href="{{ route('register') }}" class="btn btn-ghost">Buat Akun Baru</a>
       <a href="{{ route('login') }}" class="btn btn-solid">Masuk</a>
     </div>
@@ -35,7 +30,6 @@
 <header class="hero" id="top">
   <div class="hero-content">
     <div class="hero-mark">
-      <!-- Memanggil logo icon dari public/images/logo-fav.png untuk hiasan -->
       <img src="{{ asset('images/logo-fav.png') }}" alt="Lambang VitaGuard">
     </div>
     <h1>VitaGuard Health Platform</h1>
@@ -141,7 +135,6 @@
 
 
 <script>
-  // Script untuk efek animasi saat scroll 
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){

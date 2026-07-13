@@ -14,7 +14,6 @@ class AuthController extends Controller
 
     public function showLogin()
     {
-        // Kalau sudah login, langsung redirect ke dashboard sesuai role
         if (Auth::check()) {
             return $this->redirectByRole(Auth::user()->role);
         }
@@ -47,10 +46,6 @@ class AuthController extends Controller
         return $this->redirectByRole(Auth::user()->role);
     }
 
-    // =========================================================
-    //  REGISTER (khusus Member — Admin & Dokter dibuat oleh Admin)
-    // =========================================================
-
     public function showRegister()
     {
         if (Auth::check()) {
@@ -79,8 +74,6 @@ class AuthController extends Controller
             'password.min'       => 'Password minimal 8 karakter.',
         ]);
 
-        // Bungkus dalam transaction — kalau Member::create() gagal,
-        // User::create() ikut di-rollback, data tidak setengah jadi
         $user = DB::transaction(function () use ($request) {
             $user = User::create([
                 'name'         => $request->name,
@@ -91,8 +84,6 @@ class AuthController extends Controller
                 'role'         => 'member',
             ]);
 
-            // Buat profil member — field lain (gender, address, dll)
-            // bisa dilengkapi nanti di halaman edit profil
             Member::create([
                 'user_id' => $user->id,
             ]);

@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    // =========================================================
-    //  MEMBER PROFILE
-    // =========================================================
 
     public function show()
     {
@@ -87,13 +84,6 @@ class ProfileController extends Controller
         return abort(403);
     }
 
-    // =========================================================
-    //  DOCTOR PROFILE
-    // =========================================================
-
-    /**
-     * Show the doctor's profile (read-only view).
-     */
     public function doctorShow()
     {
         if (auth()->check() && auth()->user()->role === 'doctor') {
@@ -111,9 +101,6 @@ class ProfileController extends Controller
         return abort(403);
     }
 
-    /**
-     * Show the doctor's profile edit form.
-     */
     public function doctorEdit()
     {
         if (auth()->check() && auth()->user()->role === 'doctor') {
@@ -131,10 +118,6 @@ class ProfileController extends Controller
         return abort(403);
     }
 
-    /**
-     * Update the doctor's profile.
-     * Handles both User table fields and Doctor table fields.
-     */
     public function doctorUpdate(Request $request)
     {
         if (auth()->check() && auth()->user()->role === 'doctor') {

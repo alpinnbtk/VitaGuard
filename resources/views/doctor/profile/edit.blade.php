@@ -17,7 +17,6 @@
         @csrf
         @method('PUT')
 
-        {{-- Section: Informasi Akun --}}
         <h6 class="fw-semibold mb-3 pb-2 border-bottom" style="color:#0f172a;">Informasi Akun</h6>
         <div class="row g-3 mb-4">
             <div class="col-md-6">
@@ -41,7 +40,6 @@
             </div>
         </div>
 
-        {{-- Section: Informasi Praktik --}}
         <h6 class="fw-semibold mb-3 pb-2 border-bottom" style="color:#0f172a;">Informasi Praktik</h6>
         <div class="row g-3 mb-4">
             <div class="col-md-6">
@@ -73,7 +71,6 @@
             </div>
         </div>
 
-        {{-- Section: Foto Profil --}}
         <h6 class="fw-semibold mb-3 pb-2 border-bottom" style="color:#0f172a;">Foto Profil</h6>
         <div class="row g-3 mb-4 align-items-center">
             <div class="col-auto">

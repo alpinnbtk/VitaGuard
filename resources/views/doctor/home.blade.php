@@ -3,7 +3,6 @@
 
 @section('content')
 
-{{-- Greeting --}}
 <div class="d-flex align-items-center justify-content-between mb-4">
     <div>
         <h5 class="fw-semibold mb-1" style="color:#0f172a;">
@@ -15,7 +14,6 @@
     </div>
 </div>
 
-{{-- Stat Cards --}}
 <div class="row g-3 mb-4">
     <div class="col-md-4">
         <div class="stat-card">
@@ -58,13 +56,11 @@
     </div>
 </div>
 
-{{-- Menu Cards --}}
 <p style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:#94a3b8;" class="mb-3">
     Menu Utama
 </p>
 
 <div class="row g-3 mb-4">
-    {{-- Daftar Booking --}}
     <div class="col-md-6 col-lg-3">
         <a href="{{ route('doctor.bookings.index') }}" class="menu-card">
             <div class="menu-icon icon-blue">
@@ -78,7 +74,6 @@
         </a>
     </div>
 
-    {{-- Konsultasi Online --}}
     <div class="col-md-6 col-lg-3">
         <a href="{{ route('doctor.consultations.index') }}" class="menu-card">
             <div class="menu-icon icon-green">
@@ -92,7 +87,6 @@
         </a>
     </div>
 
-    {{-- Riwayat Konsultasi --}}
     <div class="col-md-6 col-lg-3">
         <a href="{{ route('doctor.history.index') }}" class="menu-card">
             <div class="menu-icon icon-amber">
@@ -106,7 +100,6 @@
         </a>
     </div>
 
-    {{-- Profil Saya --}}
     <div class="col-md-6 col-lg-3">
         <a href="{{ route('doctor.profile.show') }}" class="menu-card">
             <div class="menu-icon icon-violet">
@@ -121,7 +114,6 @@
     </div>
 </div>
 
-{{-- Booking Terbaru --}}
 <div class="card-custom">
     <div class="card-header">
         <h5><i class="bi bi-calendar-check me-2"></i>Booking Terbaru</h5>

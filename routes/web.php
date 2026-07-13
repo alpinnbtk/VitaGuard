@@ -18,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// =====================================================
-//  AUTH ROUTES (hanya untuk tamu / belum login)
-// =====================================================
+// Ini routes buat Auth ye
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -32,9 +30,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-// routes/web.php — middleware yang mengontrol akses, bukan folder controller
-
-// Admin
+// Buat Admin ye
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::resource('articles', ArticleController::class);
@@ -45,7 +41,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
     Route::resource('consultations', ConsultationController::class)->only(['index', 'show']);
     Route::resource('users', UserController::class)->except(['show']);
-    // AJAX: Get doctor schedules for admin booking create/edit forms
     Route::get('/doctors/{doctor}/schedules', [BookingController::class, 'getSchedules'])->name('doctors.schedules');
     // Route::resource('transactions',   TransactionController::class);
     Route::get('/member/profile', [App\Http\Controllers\MemberController::class, 'show'])->name('member.profile.show');
@@ -53,7 +48,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/member/profile/update', [App\Http\Controllers\MemberController::class, 'update'])->name('member.profile.update');
 });
 
-// Doctor
+// Buat Doctor ye
 Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->name('doctor.')->group(function () {
     Route::get('/home', [HomeController::class, 'doctorHome'])->name('home');
     Route::resource('bookings', BookingController::class)->only(['index', 'show']);
@@ -66,7 +61,7 @@ Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->name('doctor.')->g
     Route::put('/profile', [ProfileController::class, 'doctorUpdate'])->name('profile.update');
 });
 
-// Member
+// Buat Member ye
 Route::middleware(['auth', 'role:member'])->prefix('member')->name('member.')->group(function () {
     Route::get('/home', [HomeController::class, 'memberHome'])->name('home');
     Route::resource('articles', ArticleController::class)->only(['index', 'show']);
@@ -77,20 +72,13 @@ Route::middleware(['auth', 'role:member'])->prefix('member')->name('member.')->g
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // AJAX: Get doctor schedules for the dynamic booking form
     Route::get('/doctors/{doctor}/schedules', [BookingController::class, 'getSchedules'])->name('doctors.schedules');
 });
 
-// =====================================================
-//  SHARED AJAX ROUTES — Consultation Messages
-//  (accessible by both member and doctor roles)
-// =====================================================
 Route::middleware('auth')->group(function () {
-    // Fetch all messages for a consultation (AJAX polling)
     Route::get('/consultations/{consultation}/messages', [ConsultationMessageController::class, 'index'])
         ->name('consultation-messages.index');
 
-    // Send a new message to a consultation (AJAX)
     Route::post('/consultations/{consultation}/messages', [ConsultationMessageController::class, 'store'])
         ->name('consultation-messages.store');
 });

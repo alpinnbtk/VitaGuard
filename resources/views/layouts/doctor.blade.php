@@ -345,7 +345,6 @@
                 <h1>@yield('title', 'Beranda')</h1>
             </div>
 
-            {{-- Topbar kanan: info user + logout --}}
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center gap-2">
                     @if(Auth::user()->doctor && Auth::user()->doctor->image)

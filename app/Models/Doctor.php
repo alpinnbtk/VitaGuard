@@ -49,10 +49,10 @@ class Doctor extends Model
         return $this->hasManyThrough(
             Consultation::class,
             Booking::class,
-            'doctor_id',         // FK di tabel bookings → merujuk ke doctors.id
-            'booking_id',        // FK di tabel consultations → merujuk ke bookings.id
-            'id',                // PK di tabel doctors
-            'id'                 // PK di tabel bookings
+            'doctor_id',
+            'booking_id',
+            'id',
+            'id'
         );
     }
 

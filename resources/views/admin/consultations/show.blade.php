@@ -22,9 +22,7 @@
 </div>
 
 <div class="row g-4">
-    {{-- LEFT: Info Panel --}}
     <div class="col-lg-4">
-        {{-- Patient Info --}}
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Info Pasien</h6>
             <div class="d-flex align-items-center gap-3 mb-3">
@@ -39,7 +37,6 @@
             </div>
         </div>
 
-        {{-- Doctor Info --}}
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Info Dokter</h6>
             <div class="d-flex align-items-center gap-3 mb-3">
@@ -54,7 +51,6 @@
             </div>
         </div>
 
-        {{-- Booking & Session Info --}}
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Detail Sesi</h6>
             <ul class="list-unstyled mb-0" style="font-size:0.85rem; color:#475569;">
@@ -83,7 +79,6 @@
             </ul>
         </div>
 
-        {{-- Summary (if closed) --}}
         @if($consultation->status === 'closed' && $consultation->summary)
         <div class="card-custom p-4">
             <h6 class="fw-semibold mb-2" style="color:#0f172a;">Ringkasan Dokter</h6>
@@ -95,10 +90,8 @@
         @endif
     </div>
 
-    {{-- RIGHT: Chat Log (read-only for admin) --}}
     <div class="col-lg-8">
         <div class="card-custom d-flex flex-column" style="height:580px;">
-            {{-- Chat Header --}}
             <div class="d-flex align-items-center gap-3 px-4 py-3"
                  style="background:var(--accent); border-radius:12px 12px 0 0;">
                 <i class="bi bi-chat-dots-fill text-white fs-5"></i>
@@ -108,7 +101,6 @@
                 </span>
             </div>
 
-            {{-- Messages (read-only) --}}
             <div id="chat-box" class="flex-grow-1 p-4 overflow-auto" style="background:#f8fafc;">
                 @forelse($messages as $msg)
                     @php
@@ -147,7 +139,6 @@
                 @endforelse
             </div>
 
-            {{-- Footer info --}}
             <div class="px-4 py-3 border-top bg-light text-center" style="border-radius:0 0 12px 12px;">
                 <small class="text-muted">
                     <i class="bi bi-info-circle me-1"></i>
@@ -160,7 +151,6 @@
 
 @push('scripts')
 <script>
-    // Scroll to bottom of chat on page load
     document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
 </script>
 @endpush

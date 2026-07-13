@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="container mt-5 mb-5">
-    {{-- Back Button & Header --}}
     <div class="mb-4">
         <a href="{{ route('member.booking.index') }}" class="btn btn-sm btn-outline-secondary mb-3" style="border-radius: 20px;">
             <i class="bi bi-arrow-left me-1"></i> Kembali ke Daftar Booking
@@ -26,10 +25,8 @@
     @endif
 
     <div class="row g-4">
-        {{-- LEFT: Status & Doctor Info --}}
         <div class="col-lg-5">
             <div class="card shadow-sm" style="border-radius: 16px; border: none; overflow: hidden;">
-                {{-- Status header --}}
                 <div class="p-4" style="background:
                     {{ $booking->status === 'pending'   ? '#fff3cd' :
                       ($booking->status === 'confirmed' ? '#e2f6f4' :
@@ -60,7 +57,6 @@
                 </div>
 
                 <div class="card-body p-4">
-                    {{-- Doctor Info --}}
                     <h6 class="fw-bold mb-3" style="color: var(--dark);">Dokter</h6>
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <img src="{{ $booking->doctor->image ? asset('storage/' . $booking->doctor->image) : asset('images/doctors/default-article.jpg') }}"
@@ -80,7 +76,6 @@
 
                     <hr>
 
-                    {{-- Schedule Info --}}
                     <h6 class="fw-bold mb-3" style="color: var(--dark);">Jadwal Konsultasi</h6>
                     <ul class="list-unstyled" style="font-size:0.875rem; color:#475569;">
                         <li class="mb-2">
@@ -102,9 +97,7 @@
             </div>
         </div>
 
-        {{-- RIGHT: Booking Detail & Actions --}}
         <div class="col-lg-7">
-            {{-- Keluhan --}}
             @if($booking->complaint)
             <div class="card shadow-sm mb-4" style="border-radius: 16px; border: none;">
                 <div class="card-body p-4">
@@ -119,7 +112,6 @@
             </div>
             @endif
 
-            {{-- Consultation Status --}}
             @if($booking->consultation)
             <div class="card shadow-sm mb-4" style="border-radius: 16px; border: none;">
                 <div class="card-body p-4">
@@ -145,7 +137,6 @@
                         </a>
                     </div>
 
-                    {{-- Summary if available --}}
                     @if($booking->consultation->status === 'closed' && $booking->consultation->summary)
                     <hr>
                     <h6 class="fw-semibold mb-2" style="font-size:0.875rem; color:var(--dark);">Ringkasan Dokter</h6>
@@ -158,7 +149,6 @@
             </div>
             @endif
 
-            {{-- Action Buttons --}}
             <div class="card shadow-sm" style="border-radius: 16px; border: none;">
                 <div class="card-body p-4">
                     <h6 class="fw-bold mb-3" style="color: var(--dark);">Aksi</h6>

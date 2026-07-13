@@ -2,7 +2,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    {{-- Stat Cards Row 1: Master Data --}}
     <div class="row g-4 mb-4">
         <div class="col-md-4">
             <div class="stat-card">
@@ -45,7 +44,6 @@
         </div>
     </div>
 
-    {{-- Stat Cards Row 2: Booking & Consultation Stats --}}
     <div class="row g-4 mb-4">
         <div class="col-md-4">
             <div class="stat-card">
@@ -91,7 +89,6 @@
         </div>
     </div>
 
-    {{-- Recent Bookings Table --}}
     <div class="card-custom">
         <div class="card-header">
             <h5><i class="bi bi-calendar-check me-2"></i>Konsultasi Terbaru</h5>

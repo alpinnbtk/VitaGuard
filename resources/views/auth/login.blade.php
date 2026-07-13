@@ -190,17 +190,14 @@
 <body>
     <div class="auth-wrapper">
 
-        {{-- Brand --}}
         <div class="auth-brand">
             <img src="{{ asset('images/logo.png') }}" alt="Logo VitaGuard">
         </div>
 
-        {{-- Card --}}
         <div class="auth-card">
             <h5>Selamat datang kembali</h5>
             <p class="subtitle">Masuk ke akun Anda untuk melanjutkan</p>
 
-            {{-- Alert Error --}}
             @if($errors->any())
                 <div class="alert alert-danger mb-3">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -208,7 +205,6 @@
                 </div>
             @endif
 
-            {{-- Alert Session --}}
             @if(session('status'))
                 <div class="alert alert-success mb-3">
                     <i class="bi bi-check-circle-fill me-2"></i>
@@ -219,7 +215,6 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
 
-                {{-- Email --}}
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input
@@ -237,7 +232,6 @@
                     @enderror
                 </div>
 
-                {{-- Password --}}
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
@@ -258,7 +252,6 @@
                     </div>
                 </div>
 
-                {{-- Remember Me --}}
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" id="remember">
@@ -266,14 +259,12 @@
                     </div>
                 </div>
 
-                {{-- Submit --}}
                 <button type="submit" class="btn btn-primary w-100">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Masuk
                 </button>
             </form>
         </div>
 
-        {{-- Footer --}}
         <div class="auth-footer">
             Belum punya akun?
             <a href="{{ route('register') }}">Daftar sekarang</a>

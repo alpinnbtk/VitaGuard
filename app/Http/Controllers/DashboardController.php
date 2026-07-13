@@ -13,17 +13,14 @@ class DashboardController extends Controller
 {
     public function adminDashboard()
     {
-        // --- Master data counts ---
         $totalMembers  = User::where('role', 'member')->count();
         $totalDoctors  = Doctor::count();
         $totalArticles = Article::count();
 
-        // --- Booking & Consultation statistics ---
         $totalBookings           = Booking::count();
         $ongoingConsultations    = Consultation::where('status', 'ongoing')->count();
         $completedConsultations  = Consultation::where('status', 'closed')->count();
 
-        // --- Recent bookings for the dashboard table ---
         $recentBookings = Booking::with(['user', 'doctor'])
             ->latest()
             ->take(5)

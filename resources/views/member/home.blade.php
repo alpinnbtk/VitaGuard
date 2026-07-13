@@ -4,7 +4,6 @@
 
 @push('styles')
     <style>
-        /* ── HERO ─────────────────────────────────── */
         .hero {
             background: linear-gradient(135deg, var(--dark) 0%, var(--accent-dark) 100%);
             color: white;
@@ -62,7 +61,6 @@
             color: white;
         }
 
-        /* ── MENU CARDS ───────────────────────────── */
         .section-title {
             font-size: 0.7rem;
             font-weight: 600;
@@ -125,7 +123,6 @@
             font-weight: 500;
         }
 
-        /* Icon color variants */
         .icon-blue   { background: rgba(14, 165, 233, 0.1);  color: #0ea5e9; }
         .icon-teal   { background: rgba(20, 184, 166, 0.1);  color: #14b8a6; }
         .icon-violet { background: rgba(139, 92, 246, 0.1);  color: #8b5cf6; }
@@ -135,7 +132,6 @@
 @endpush
 
 @section('content')
-    {{-- HERO --}}
     <section class="hero">
         <div class="container position-relative">
             <p style="font-size:0.8rem; color:#0ea5e9; font-weight:500; margin-bottom:0.5rem;">
@@ -147,7 +143,6 @@
         </div>
     </section>
 
-    {{-- MENU UTAMA --}}
     <div class="container py-4">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show mb-4" role="alert"
@@ -160,7 +155,6 @@
         <p class="section-title">Layanan</p>
 
         <div class="row g-3">
-            {{-- Artikel Kesehatan --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.articles.index') }}" class="menu-card">
                     <div class="menu-icon icon-blue">
@@ -174,7 +168,6 @@
                 </a>
             </div>
 
-            {{-- Daftar Dokter --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.doctors.index') }}" class="menu-card">
                     <div class="menu-icon icon-teal">
@@ -188,7 +181,6 @@
                 </a>
             </div>
 
-            {{-- Booking Konsultasi --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.booking.create') }}" class="menu-card">
                     <div class="menu-icon icon-violet">
@@ -202,7 +194,6 @@
                 </a>
             </div>
 
-            {{-- Konsultasi Online --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.consultations.index') }}" class="menu-card">
                     <div class="menu-icon icon-green">
@@ -216,7 +207,6 @@
                 </a>
             </div>
 
-            {{-- Riwayat Konsultasi --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.consultations.index') }}" class="menu-card">
                     <div class="menu-icon icon-amber">
@@ -230,7 +220,6 @@
                 </a>
             </div>
 
-            {{-- Profil Saya --}}
             <div class="col-6 col-lg-4">
                 <a href="{{ route('member.profile.show') }}" class="menu-card">
                     <div class="menu-icon" style="background:rgba(241,245,249,1); color:#64748b;">

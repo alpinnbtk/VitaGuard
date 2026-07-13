@@ -25,7 +25,6 @@
 </div>
 
 <div class="row g-4">
-    {{-- LEFT: Photo & basic info --}}
     <div class="col-lg-4">
         <div class="card-custom p-4 text-center mb-4">
             @if($doctor->image)
@@ -52,7 +51,6 @@
             @endif
         </div>
 
-        {{-- Account info --}}
         @if($doctor->user)
         <div class="card-custom p-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Akun Pengguna</h6>
@@ -74,7 +72,6 @@
         @endif
     </div>
 
-    {{-- RIGHT: Detail info --}}
     <div class="col-lg-8">
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-4" style="color:#0f172a; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
@@ -124,7 +121,6 @@
             </div>
         </div>
 
-        {{-- Transactions/Booking history --}}
         @if($doctor->transactions && $doctor->transactions->count() > 0)
         <div class="card-custom">
             <div class="card-header">

@@ -11,7 +11,6 @@
     <div class="card shadow" style="border-radius: 15px; overflow: hidden; border: none;">
         <div class="row g-0">
 
-            {{-- LEFT: Step Navigator --}}
             <div class="col-md-4 p-4 text-white" style="background-color: var(--dark);">
                 <h5 class="mb-4" style="font-weight: 600;">Tahapan Booking</h5>
 
@@ -46,12 +45,10 @@
                 </div>
             </div>
 
-            {{-- RIGHT: Form Steps --}}
             <div class="col-md-8 p-5 bg-white">
                 <form action="{{ route('member.booking.store') }}" method="POST" id="bookingForm">
                     @csrf
 
-                    {{-- STEP 1: Choose Doctor --}}
                     <div id="step-1" class="form-step">
                         <h4 class="mb-4" style="color: var(--dark); font-weight: 600;">Pilih Dokter</h4>
 
@@ -92,29 +89,23 @@
                         </div>
                     </div>
 
-                    {{-- STEP 2: Choose Schedule --}}
                     <div id="step-2" class="form-step d-none">
                         <h4 class="mb-4" style="color: var(--dark); font-weight: 600;">Pilih Jadwal Konsultasi</h4>
 
-                        {{-- Hidden inputs that will be filled by JS --}}
                         <input type="hidden" name="doctor_schedule_id" id="selected_schedule_id">
 
-                        {{-- Loading indicator --}}
                         <div id="schedules-loading" class="text-center py-4 d-none">
                             <div class="spinner-border text-primary" style="width:2rem; height:2rem;"></div>
                             <p class="text-muted mt-2 mb-0" style="font-size:0.85rem;">Memuat jadwal...</p>
                         </div>
 
-                        {{-- No schedules state --}}
                         <div id="schedules-empty" class="text-center py-4 d-none">
                             <i class="bi bi-calendar-x" style="font-size:2.5rem; color:#cbd5e1;"></i>
                             <p class="text-muted mt-2 mb-0" style="font-size:0.85rem;">Dokter ini belum memiliki jadwal yang tersedia.</p>
                         </div>
 
-                        {{-- Schedule list container --}}
                         <div id="schedules-container" class="mb-4"></div>
 
-                        {{-- Date picker --}}
                         <div class="mb-4" id="date-section" style="display:none;">
                             <label class="form-label fw-semibold" style="font-size:0.9rem;">Pilih Tanggal Kunjungan</label>
                             <input type="date" name="booking_date" id="booking_date" class="form-control"
@@ -133,7 +124,6 @@
                         </div>
                     </div>
 
-                    {{-- STEP 3: Confirmation --}}
                     <div id="step-3" class="form-step d-none">
                         <h4 class="mb-4" style="color: var(--dark); font-weight: 600;">Konfirmasi Booking</h4>
 
@@ -158,7 +148,6 @@
                             </button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -208,7 +197,6 @@
     let selectedScheduleLabel  = '';
     let selectedScheduleDay    = '';
 
-    // ── When a doctor radio is selected ──────────────────────────────
     function onDoctorSelected(radio) {
         const label      = radio.closest('.doctor-option');
         selectedDoctorName = label.dataset.doctorName;
@@ -217,14 +205,12 @@
         document.getElementById('summary-doctor').textContent  = selectedDoctorName;
         document.getElementById('confirm-doctor').textContent  = selectedDoctorName;
 
-        // Reset schedule state
         document.getElementById('selected_schedule_id').value = '';
         document.getElementById('schedules-container').innerHTML = '';
         document.getElementById('date-section').style.display = 'none';
         document.getElementById('schedules-empty').classList.add('d-none');
         document.getElementById('schedules-loading').classList.remove('d-none');
 
-        // Fetch schedules via AJAX
         fetch(url, { headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content } })
             .then(r => r.json())
             .then(schedules => {
@@ -258,23 +244,19 @@
             });
     }
 
-    // ── When a schedule slot is selected ──────────────────────────────
     function onScheduleSelected(radio) {
         document.getElementById('selected_schedule_id').value = radio.value;
         selectedScheduleLabel = radio.dataset.label;
         selectedScheduleDay   = radio.dataset.day;
 
-        // Show date picker and guide user to matching day
         document.getElementById('date-section').style.display = 'block';
         document.getElementById('confirm-schedule').textContent = selectedScheduleLabel;
         document.getElementById('summary-schedule').textContent = selectedScheduleLabel;
 
-        // Set a helpful hint for the date
         const dayName = DAY_LABELS[selectedScheduleDay] ?? selectedScheduleDay;
         document.getElementById('date-hint').textContent = `Pilih tanggal yang jatuh pada hari ${selectedScheduleDay} (${dayName}).`;
     }
 
-    // ── Update confirmation date display ──────────────────────────────
     function updateConfirmSummary() {
         const dateVal = document.getElementById('booking_date').value;
         if (!dateVal) return;
@@ -283,7 +265,6 @@
             d.toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
     }
 
-    // ── Step navigation ───────────────────────────────────────────────
     function validateStep(step) {
         if (step === 1) {
             if (!document.querySelector('input[name="doctor_id"]:checked')) {
@@ -300,7 +281,6 @@
                 alert('Tolong pilih tanggal kunjungan.');
                 return false;
             }
-            // Validate the selected date matches the chosen schedule day
             const dateVal    = document.getElementById('booking_date').value;
             const selectedDay = document.querySelector('input[name="_schedule_radio"]:checked')?.dataset.day;
             if (selectedDay) {
@@ -335,7 +315,6 @@
         }
     }
 
-    // ── Doctor search filter ──────────────────────────────────────────
     function filterDoctors() {
         const search = document.getElementById('doctorSearch').value.toLowerCase();
         document.querySelectorAll('.doctor-option').forEach(opt => {

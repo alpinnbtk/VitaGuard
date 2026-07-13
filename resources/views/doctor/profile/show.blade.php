@@ -13,7 +13,6 @@
 </div>
 
 <div class="row g-4">
-    {{-- Profile Card --}}
     <div class="col-lg-4">
         <div class="card-custom p-4 text-center">
             @if($doctor->image)
@@ -40,7 +39,6 @@
         </div>
     </div>
 
-    {{-- Details --}}
     <div class="col-lg-8">
         <div class="card-custom p-4">
             <h6 class="fw-semibold mb-4" style="color:#0f172a;">Informasi Detail</h6>

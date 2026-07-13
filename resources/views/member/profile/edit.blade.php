@@ -17,11 +17,9 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- Section: Foto Profil --}}
                         <h5 class="mb-3" style="color: var(--dark); font-weight: 600;">Foto Profil</h5>
                         <div class="row mb-4 align-items-center">
                             <div class="col-auto">
-                                {{-- Ganti 'photo' dengan nama kolom di tabel users kamu jika berbeda --}}
                                 @if($user->photo)
                                     <img src="{{ asset($user->photo) }}" id="preview-img"
                                          class="rounded-circle shadow-sm" style="width:80px; height:80px; object-fit:cover; border:2px solid var(--accent);">
@@ -46,7 +44,6 @@
 
                         <hr class="mb-4" style="border-color: #eee;">
 
-                        {{-- Section: Informasi Akun --}}
                         <h5 class="mb-4" style="color: var(--dark); font-weight: 600;">Informasi Akun</h5>
 
                         <div class="mb-3">
@@ -72,7 +69,6 @@
 
                         <hr class="mb-4" style="border-color: #eee;">
 
-                        {{-- Section: Informasi Kesehatan --}}
                         <h5 class="mb-4" style="color: var(--dark); font-weight: 600;">Informasi Kesehatan & Lainnya</h5>
 
                         <div class="row">
@@ -116,7 +112,6 @@
     </div>
 </div>
 
-{{-- Script untuk Live Preview Gambar --}}
 @push('scripts')
 <script>
 function previewImage(event) {

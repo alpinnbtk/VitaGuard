@@ -311,7 +311,6 @@
                 <h1>@yield('title', 'Dashboard')</h1>
             </div>
             <div class="d-flex align-items-center gap-3">
-                {{-- Info user --}}
                 <div class="d-flex align-items-center gap-2">
                     @if(Auth::user()->photo)
                         <img src="{{ asset(Auth::user()->photo) }}"
@@ -334,7 +333,6 @@
                     </div>
                 </div>
 
-                {{-- Logout button --}}
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-outline-danger"

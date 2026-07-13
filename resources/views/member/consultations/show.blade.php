@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="container my-5">
-    {{-- Header --}}
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
             <a href="{{ route('member.consultations.index') }}" class="btn btn-sm btn-outline-secondary mb-2">
@@ -17,7 +16,7 @@
                 @endif
             </h4>
         </div>
-        {{-- Status badge --}}
+
         @if($consultation->status === 'ongoing')
             <span class="badge" style="background:#e2f6f4; color:var(--accent); font-size:0.8rem; padding:8px 16px; border-radius:20px;">
                 <span class="me-1" style="display:inline-block; width:8px; height:8px; background:var(--accent); border-radius:50%; animation: pulse 1.5s infinite;"></span>
@@ -29,7 +28,6 @@
     </div>
 
     <div class="row g-4">
-        {{-- LEFT: Booking Info --}}
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm" style="border-radius:16px; overflow:hidden;">
                 <div class="card-body p-4">
@@ -59,7 +57,6 @@
                         </li>
                     </ul>
 
-                    {{-- Consultation summary (only for closed) --}}
                     @if($consultation->status === 'closed' && $consultation->summary)
                         <hr>
                         <h6 class="fw-bold mb-2" style="color:var(--dark);">Ringkasan Dokter</h6>
@@ -76,16 +73,13 @@
             </div>
         </div>
 
-        {{-- RIGHT: Chat window --}}
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm d-flex flex-column" style="border-radius:16px; overflow:hidden; height:580px;">
-                {{-- Chat Header --}}
                 <div class="d-flex align-items-center gap-3 px-4 py-3" style="background:var(--dark); border-radius:16px 16px 0 0;">
                     <i class="bi bi-chat-dots-fill text-white fs-5"></i>
                     <span class="text-white fw-semibold">Percakapan</span>
                 </div>
 
-                {{-- Message area --}}
                 <div id="chat-box" class="flex-grow-1 p-4 overflow-auto" style="background:#f8fafc;">
                     @forelse($messages as $msg)
                         @php $isMine = $msg->sender_id === auth()->id(); @endphp
@@ -115,7 +109,6 @@
                     @endforelse
                 </div>
 
-                {{-- Input area (only for ongoing) --}}
                 @if($consultation->status === 'ongoing')
                 <div class="px-4 py-3 border-top bg-white">
                     <div class="d-flex gap-2">
@@ -150,13 +143,11 @@
 
     let lastMessageCount = {{ count($messages) }};
 
-    /** Scroll chat box to the bottom */
     function scrollToBottom() {
         const box = document.getElementById('chat-box');
         box.scrollTop = box.scrollHeight;
     }
 
-    /** Build a single message bubble HTML string */
     function buildBubble(msg) {
         const align = msg.is_mine ? 'justify-content-end' : 'justify-content-start';
         const bubbleStyle = msg.is_mine
@@ -177,14 +168,12 @@
             </div>`;
     }
 
-    /** Escape HTML to prevent XSS */
     function escapeHtml(str) {
         const d = document.createElement('div');
         d.textContent = str;
         return d.innerHTML;
     }
 
-    /** Poll for new messages every 3 seconds */
     function pollMessages() {
         fetch(FETCH_URL, { headers: { 'X-CSRF-TOKEN': CSRF_TOKEN, 'Accept': 'application/json' } })
             .then(r => r.json())
@@ -194,7 +183,6 @@
                     const empty = document.getElementById('empty-state');
                     if (empty) empty.remove();
 
-                    // Append only new messages
                     const newMsgs = messages.slice(lastMessageCount);
                     newMsgs.forEach(msg => box.insertAdjacentHTML('beforeend', buildBubble(msg)));
                     lastMessageCount = messages.length;
@@ -203,7 +191,6 @@
             });
     }
 
-    /** Send message via AJAX */
     function sendMessage() {
         const input = document.getElementById('msg-input');
         const text  = input.value.trim();
@@ -239,7 +226,6 @@
         });
     }
 
-    /** Allow Enter to send, Shift+Enter for new line */
     function handleEnter(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -247,7 +233,6 @@
         }
     }
 
-    // Start polling and initial scroll
     scrollToBottom();
     setInterval(pollMessages, 3000);
 </script>
