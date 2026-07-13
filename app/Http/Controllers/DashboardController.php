@@ -26,6 +26,23 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $bookingStatusData = [
+            'pending'   => Booking::where('status', 'pending')->count(),
+            'confirmed' => Booking::where('status', 'confirmed')->count(),
+            'completed' => Booking::where('status', 'completed')->count(),
+            'cancelled' => Booking::where('status', 'cancelled')->count(),
+        ];
+
+        $monthlyBookings = Booking::selectRaw("
+                DATE_FORMAT(booking_date, '%b %Y') as month,
+                DATE_FORMAT(booking_date, '%Y%m')  as sort_key,
+                COUNT(*) as total
+            ")
+            ->where('booking_date', '>=', now()->subMonths(5)->startOfMonth())
+            ->groupByRaw("DATE_FORMAT(booking_date, '%b %Y'), DATE_FORMAT(booking_date, '%Y%m')")
+            ->orderBy('sort_key')
+            ->get();
+
         return view('admin.dashboard', compact(
             'totalMembers',
             'totalDoctors',
@@ -33,7 +50,9 @@ class DashboardController extends Controller
             'totalBookings',
             'ongoingConsultations',
             'completedConsultations',
-            'recentBookings'
+            'recentBookings',
+            'bookingStatusData',
+            'monthlyBookings'
         ));
     }
 }

@@ -17,10 +17,16 @@
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-semibold mb-3" style="color:#0f172a;">Info Pasien</h6>
             <div class="d-flex align-items-center gap-3 mb-4">
-                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center"
-                     style="width:48px; height:48px; font-size:1.2rem;">
-                    <i class="bi bi-person-fill"></i>
-                </div>
+                @if($booking->user->photo)
+                    <img src="{{ asset($booking->user->photo) }}"
+                        class="rounded-circle"
+                        style="width:48px; height:48px; object-fit:cover; border:2px solid #0ea5e9;">
+                @else
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center"
+                        style="width:48px; height:48px; font-size:1.2rem;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                @endif
                 <div>
                     <div class="fw-semibold" style="color:#0f172a;">{{ $booking->user->name ?? '-' }}</div>
                     <small class="text-muted">{{ $booking->user->email ?? '' }}</small>

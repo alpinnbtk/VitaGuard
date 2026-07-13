@@ -7,8 +7,37 @@
         <h5><i class="bi bi-pencil-square me-2"></i>Edit User</h5>
     </div>
     <div class="p-4">
-        <form action="{{ route('admin.users.update', $user) }}" method="POST">
+        <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
             @csrf @method('PUT')
+            <div class="mb-3">
+                <label for="photo" class="form-label fw-medium">Foto Profil</label>
+
+                @if($user->photo)
+                    <div class="mb-2">
+                        <img src="{{ asset($user->photo) }}"
+                            alt="Foto {{ $user->name }}"
+                            class="rounded-circle"
+                            style="width:64px; height:64px; object-fit:cover; border:2px solid #0ea5e9;">
+                        <small class="text-muted ms-2">Foto saat ini</small>
+                    </div>
+                @else
+                    <div class="mb-2 d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center"
+                            style="width:64px; height:64px; font-size:1.5rem;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <small class="text-muted">Belum ada foto</small>
+                    </div>
+                @endif
+
+                <input type="file"
+                    name="photo"
+                    id="photo"
+                    class="form-control @error('photo') is-invalid @enderror"
+                    accept="image/jpeg,image/png,image/jpg,image/webp">
+                <div class="form-text">Format: JPG, PNG, WEBP. Maks. 2MB. Kosongkan jika tidak ingin mengubah foto.</div>
+                @error('photo') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
             <div class="mb-3">
                 <label for="name" class="form-label fw-medium">Nama Lengkap <span class="text-danger">*</span></label>
                 <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" required>

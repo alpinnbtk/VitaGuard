@@ -89,6 +89,30 @@
         </div>
     </div>
 
+    <div class="row g-4 mt-2">
+        <div class="col-md-5">
+            <div class="card-custom">
+                <div class="card-header">
+                    <h5><i class="bi bi-pie-chart-fill me-2"></i>Status Booking</h5>
+                </div>
+                <div class="p-4 d-flex justify-content-center align-items-center" style="min-height:300px;">
+                    <canvas id="bookingStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card-custom">
+                <div class="card-header">
+                    <h5><i class="bi bi-bar-chart-fill me-2"></i>Tren Booking (6 Bulan Terakhir)</h5>
+                </div>
+                <div class="p-4">
+                    <canvas id="monthlyBookingChart" style="max-height:280px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-custom">
         <div class="card-header">
             <h5><i class="bi bi-calendar-check me-2"></i>Konsultasi Terbaru</h5>
@@ -141,4 +165,74 @@
             </table>
         </div>
     </div>
+
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        new Chart(document.getElementById('bookingStatusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Dikonfirmasi', 'Selesai', 'Dibatalkan'],
+                datasets: [{
+                    data: [
+                        {{ $bookingStatusData['pending']   ?? 0 }},
+                        {{ $bookingStatusData['confirmed'] ?? 0 }},
+                        {{ $bookingStatusData['completed'] ?? 0 }},
+                        {{ $bookingStatusData['cancelled'] ?? 0 }},
+                    ],
+                    backgroundColor: ['#f59e0b', '#0ea5e9', '#22c55e', '#ef4444'],
+                    borderWidth: 3,
+                    borderColor: '#ffffff',
+                    hoverOffset: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '68%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { family: 'Inter', size: 12 }, padding: 16 }
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('monthlyBookingChart'), {
+            type: 'line',
+            data: {
+                labels:   {!! json_encode($monthlyBookings->pluck('month')) !!},
+                datasets: [{
+                    label: 'Jumlah Booking',
+                    data:  {!! json_encode($monthlyBookings->pluck('total')) !!},
+                    backgroundColor: 'rgba(14, 165, 233, 0.08)',
+                    borderColor: '#0ea5e9',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#0ea5e9',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0, font: { family: 'Inter', size: 12 } },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    x: {
+                        ticks: { font: { family: 'Inter', size: 12 } },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+    @endpush
 @endsection
