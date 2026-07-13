@@ -135,7 +135,7 @@
     <section class="hero">
         <div class="container position-relative">
             <p style="font-size:0.8rem; color:#0ea5e9; font-weight:500; margin-bottom:0.5rem;">
-                Selamat datang, {{ Auth::user()->name }} 👋
+                Selamat datang, {{ Auth::user()->name }}
             </p>
             <h1>Layanan Kesehatan <span>Digital</span><br>Ada di Genggamanmu</h1>
             <p>Konsultasi dokter, booking jadwal, dan akses informasi kesehatan kapan saja.</p>
